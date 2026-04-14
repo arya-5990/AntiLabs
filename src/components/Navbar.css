@@ -1,3 +1,9 @@
+/* ============================================================
+   Navbar — Light Theme
+   Always starts with frosted white over hero, transitions to
+   fully opaque white on scroll.
+   ============================================================ */
+
 .navbar {
     position: fixed;
     top: 0;
@@ -5,15 +11,17 @@
     right: 0;
     z-index: 1000;
     transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    padding: 0;
+    /* Frosted white even at top — readable logo on dark hero */
+    background: rgba(250, 251, 255, 0.72);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(10, 15, 44, 0.07);
 }
 
 .navbar--scrolled {
-    background: rgba(10, 15, 44, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(0, 200, 255, 0.2);
-    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.4);
+    background: rgba(250, 251, 255, 0.97);
+    border-bottom: 1px solid rgba(10, 15, 44, 0.1);
+    box-shadow: 0 2px 24px rgba(10, 15, 44, 0.08);
 }
 
 .navbar__inner {
@@ -26,21 +34,27 @@
     gap: 32px;
 }
 
-/* Logo */
+/* Logo — no blend mode needed on light navbar */
 .navbar__logo {
     display: flex;
     align-items: center;
-    gap: 10px;
     text-decoration: none;
     flex-shrink: 0;
 }
 
-.navbar__wordmark {
-    font-family: var(--font-heading);
-    font-size: 20px;
-    font-weight: 600;
-    color: #fff;
-    letter-spacing: -0.02em;
+.navbar__logo-img {
+    height: 64px;
+    width: auto;
+    display: block;
+    /* No mix-blend-mode needed — light navabr bg, logo has white bg, matches perfectly */
+    filter: none;
+    border-radius: 4px;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.navbar__logo:hover .navbar__logo-img {
+    opacity: 0.85;
+    transform: scale(0.98);
 }
 
 /* Nav Links */
@@ -78,10 +92,19 @@
 }
 
 .navbar__link:hover {
-    color: #fff;
+    color: var(--primary);
+    background: var(--accent-dim);
 }
 
 .navbar__link:hover::after {
+    transform: scaleX(1);
+}
+
+.navbar__link--active {
+    color: var(--primary);
+}
+
+.navbar__link--active::after {
     transform: scaleX(1);
 }
 
@@ -119,7 +142,7 @@
     display: block;
     width: 24px;
     height: 2px;
-    background: var(--text-primary);
+    background: var(--primary);
     border-radius: 2px;
     transition: all 0.3s ease;
 }
@@ -163,9 +186,10 @@
         top: 72px;
         left: 0;
         right: 0;
-        background: rgba(10, 15, 44, 0.98);
+        background: rgba(250, 251, 255, 0.98);
         backdrop-filter: blur(16px);
-        border-bottom: 1px solid var(--border-cyan);
+        border-bottom: 1px solid var(--border);
+        box-shadow: 0 8px 32px rgba(10, 15, 44, 0.1);
         padding: 16px 24px 24px;
         gap: 4px;
         margin: 0;

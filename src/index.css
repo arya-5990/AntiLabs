@@ -1,28 +1,41 @@
 /* ============================================================
-   AntiLabs — Global Design System
+   AntiLabs — Global Design System (LIGHT THEME)
    ============================================================ */
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 :root {
-  /* Colors */
+  /* Light Theme Colors */
+  --bg: #FAFBFF;
+  /* page background */
   --primary: #0A0F2C;
-  --accent: #00C8FF;
-  --accent-dim: rgba(0, 200, 255, 0.12);
-  --accent-glow: rgba(0, 200, 255, 0.25);
-  --surface: #111827;
-  --surface-2: #1a2236;
-  --text-primary: #FFFFFF;
-  --text-secondary: #A0AEC0;
-  --text-muted: #6B7280;
-  --border: rgba(255, 255, 255, 0.08);
-  --border-cyan: rgba(0, 200, 255, 0.2);
+  /* deep navy — primary text */
+  --accent: #0099C8;
+  /* darker cyan for light-bg accessibility */
+  --accent-bright: #00C8FF;
+  /* kept for decorative/icons */
+  --accent-dim: rgba(0, 153, 200, 0.1);
+  --accent-glow: rgba(0, 153, 200, 0.2);
+  --surface: #F0F4FF;
+  /* light blue-tinted panels */
+  --surface-2: #E4EBFF;
+  --card-bg: #FFFFFF;
+  --text-primary: #0A0F2C;
+  --text-secondary: #3D4A6B;
+  --text-muted: #7B8DB0;
+  --border: rgba(10, 15, 44, 0.08);
+  --border-cyan: rgba(0, 153, 200, 0.25);
+  --shadow-sm: 0 2px 12px rgba(10, 15, 44, 0.06);
+  --shadow-md: 0 6px 32px rgba(10, 15, 44, 0.1);
+  --shadow-lg: 0 16px 64px rgba(10, 15, 44, 0.14);
 
-  /* Typography */
+  /* typography */
   --font-heading: 'Space Grotesk', sans-serif;
   --font-body: 'Inter', sans-serif;
 
@@ -41,7 +54,7 @@ html {
 
 body {
   font-family: var(--font-body);
-  background-color: var(--primary);
+  background-color: var(--bg);
   color: var(--text-primary);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -49,19 +62,39 @@ body {
 }
 
 /* ---- Scrollbar ---- */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--primary); }
-::-webkit-scrollbar-thumb { background: var(--border-cyan); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-cyan);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
 
 /* ---- Typography ---- */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   line-height: 1.15;
   font-weight: 700;
+  color: var(--text-primary);
 }
 
-p { line-height: 1.7; }
+p {
+  line-height: 1.7;
+}
 
 a {
   text-decoration: none;
@@ -86,12 +119,13 @@ a {
 }
 
 .btn-primary {
-  background: var(--accent);
+  background: var(--accent-bright);
   color: var(--primary);
 }
+
 .btn-primary:hover {
   background: #1ad4ff;
-  box-shadow: 0 0 24px rgba(0, 200, 255, 0.45);
+  box-shadow: 0 4px 20px rgba(0, 200, 255, 0.4);
   transform: translateY(-2px);
 }
 
@@ -100,9 +134,10 @@ a {
   color: var(--accent);
   border: 1.5px solid var(--accent);
 }
+
 .btn-secondary:hover {
-  background: rgba(0, 200, 255, 0.08);
-  box-shadow: 0 0 20px rgba(0, 200, 255, 0.2);
+  background: var(--accent-dim);
+  box-shadow: 0 4px 16px rgba(0, 153, 200, 0.15);
   transform: translateY(-2px);
 }
 
@@ -146,63 +181,100 @@ a {
   max-width: 560px;
 }
 
-/* ---- Glass Card ---- */
+/* ---- Card (light) ---- */
 .glass-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(0, 200, 255, 0.1);
+  background: var(--card-bg);
+  border: 1px solid var(--border);
   border-radius: var(--radius-card);
-  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-sm);
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 .glass-card:hover {
-  border-color: rgba(0, 200, 255, 0.35);
-  box-shadow: 0 8px 40px rgba(0, 200, 255, 0.12), 0 0 0 1px rgba(0,200,255,0.08);
+  border-color: var(--border-cyan);
+  box-shadow: var(--shadow-md), 0 0 0 1px var(--border-cyan);
   transform: translateY(-6px);
 }
 
-/* ---- Animated gradient text ---- */
+/* ---- Gradient text (dark→cyan for light bg) ---- */
 .gradient-text {
-  background: linear-gradient(135deg, #ffffff 0%, var(--accent) 100%);
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* ---- Fade up animation ---- */
+/* ---- Animations ---- */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(40px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes pulse-glow {
-  0%, 100% { opacity: 0.06; }
-  50%       { opacity: 0.12; }
+
+  0%,
+  100% {
+    opacity: 0.04;
+  }
+
+  50% {
+    opacity: 0.09;
+  }
 }
 
 @keyframes bounce-down {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(8px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(8px);
+  }
 }
 
 @keyframes marquee {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  33%       { transform: translateY(-12px) rotate(3deg); }
-  66%       { transform: translateY(6px) rotate(-2deg); }
-}
 
-@keyframes shimmer {
-  0%   { background-position: -200% center; }
-  100% { background-position: 200% center; }
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  33% {
+    transform: translateY(-12px) rotate(3deg);
+  }
+
+  66% {
+    transform: translateY(6px) rotate(-2deg);
+  }
 }
 
 .animate-fade-up {
@@ -233,18 +305,28 @@ a {
   font-weight: 600;
   font-family: var(--font-heading);
   letter-spacing: 0.08em;
-  background: rgba(0, 200, 255, 0.1);
+  background: var(--accent-dim);
   color: var(--accent);
-  border: 1px solid rgba(0, 200, 255, 0.25);
+  border: 1px solid var(--border-cyan);
 }
 
 /* ---- Responsive ---- */
 @media (max-width: 1024px) {
-  :root { --section-py: 80px; }
-  .container { padding: 0 32px; }
+  :root {
+    --section-py: 80px;
+  }
+
+  .container {
+    padding: 0 32px;
+  }
 }
 
 @media (max-width: 768px) {
-  :root { --section-py: 60px; }
-  .container { padding: 0 20px; }
+  :root {
+    --section-py: 60px;
+  }
+
+  .container {
+    padding: 0 20px;
+  }
 }

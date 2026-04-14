@@ -1,0 +1,317 @@
+/* ══════════════════════════════════════════════
+   About Page  (ap = AboutPage namespace)
+══════════════════════════════════════════════ */
+
+/* ── Reveal util ─────────────────────────── */
+.ap__reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.ap__reveal--in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ── Hero ─────────────────────────────────── */
+.ap__hero {
+    position: relative;
+    padding: 160px 0 100px;
+    overflow: hidden;
+}
+
+.ap__hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 70% 60% at 10% 60%, rgba(0, 153, 200, 0.09) 0%, transparent 65%),
+        radial-gradient(ellipse 55% 65% at 90% 15%, rgba(123, 97, 255, 0.07) 0%, transparent 60%),
+        linear-gradient(160deg, #f0f5ff 0%, #fafbff 55%, #f5f0ff 100%);
+    z-index: 0;
+}
+
+.ap__hero-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.ap__hero-content--in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.ap__hero-h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(32px, 4.2vw, 58px);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    color: var(--primary);
+}
+
+.ap__hero-sub {
+    font-size: 17px;
+    color: var(--text-secondary);
+    max-width: 620px;
+    line-height: 1.75;
+}
+
+/* ── Shared heading ──────────────────────── */
+.ap__section-h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(26px, 3vw, 40px);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    color: var(--primary);
+    line-height: 1.2;
+    margin-top: 12px;
+}
+
+/* ── Story ───────────────────────────────── */
+.ap__story-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+}
+
+.ap__story-text {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.ap__story-text p {
+    font-size: 15.5px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+.ap__stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.ap__stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    box-shadow: 0 2px 12px rgba(10, 15, 44, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.ap__stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(10, 15, 44, 0.08);
+}
+
+.ap__stat-value {
+    font-family: var(--font-heading);
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    background: linear-gradient(135deg, var(--accent), #7B61FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.ap__stat-label {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* ── Mission / Vision ────────────────────── */
+.ap__mv {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.ap__mv-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: stretch;
+}
+
+.ap__mv-grid .ap__reveal {
+    height: 100%;
+}
+
+.ap__mv-card {
+    border-radius: 20px;
+    padding: 40px 36px;
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.ap__mv-card--mission {
+    background: linear-gradient(135deg, rgba(0, 153, 200, 0.06) 0%, rgba(0, 200, 255, 0.04) 100%);
+    border-color: rgba(0, 153, 200, 0.2);
+}
+
+.ap__mv-card--vision {
+    background: linear-gradient(135deg, rgba(123, 97, 255, 0.06) 0%, rgba(200, 180, 255, 0.04) 100%);
+    border-color: rgba(123, 97, 255, 0.2);
+}
+
+.ap__mv-label {
+    font-family: var(--font-heading);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+.ap__mv-card--vision .ap__mv-label {
+    color: #7B61FF;
+}
+
+.ap__mv-h3 {
+    font-family: var(--font-heading);
+    font-size: clamp(20px, 2vw, 26px);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--primary);
+    line-height: 1.25;
+}
+
+.ap__mv-desc {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.75;
+}
+
+/* ── Values ──────────────────────────────── */
+.ap__values-header {
+    text-align: center;
+    margin-bottom: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.ap__values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-items: stretch;
+}
+
+/* Ensure reveal wrappers don't break equal height */
+.ap__values-grid .ap__reveal {
+    height: 100%;
+}
+
+.ap__value-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 32px 28px;
+    border-radius: 16px;
+    height: 100%;
+    box-sizing: border-box;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.ap__value-card:hover {
+    transform: translateY(-4px);
+}
+
+.ap__value-icon {
+    width: 44px;
+    height: 44px;
+    color: var(--accent);
+}
+
+.ap__value-title {
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.ap__value-desc {
+    font-size: 14.5px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+/* ── CTA Strip ───────────────────────────── */
+.ap__cta-strip {
+    background: linear-gradient(135deg, var(--primary) 0%, #0a2a5a 100%);
+    padding: 80px 0;
+}
+
+.ap__cta-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+}
+
+.ap__cta-h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(22px, 2.8vw, 38px);
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.03em;
+}
+
+.ap__cta-sub {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 480px;
+    line-height: 1.7;
+}
+
+/* ── Responsive ──────────────────────────── */
+@media (max-width: 900px) {
+
+    .ap__story-grid,
+    .ap__mv-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .ap__values-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 580px) {
+    .ap__hero {
+        padding: 130px 0 70px;
+    }
+
+    .ap__values-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ap__stats-grid {
+        grid-template-columns: 1fr;
+    }
+}

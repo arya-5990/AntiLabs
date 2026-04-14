@@ -2,14 +2,29 @@ import React from 'react';
 import './TrustedBy.css';
 
 const logos = [
-    { name: 'Stripe', letter: 'S' },
-    { name: 'Notion', letter: 'N' },
-    { name: 'Figma', letter: 'F' },
-    { name: 'Vercel', letter: 'V' },
-    { name: 'Shopify', letter: 'SH' },
-    { name: 'Airbnb', letter: 'A' },
-    { name: 'GitHub', letter: 'GH' },
-    { name: 'Atlassian', letter: 'AT' },
+    { name: 'MongoDB', letter: 'M' },
+    { name: 'Express', letter: 'Ex' },
+    { name: 'React', letter: 'R' },
+    { name: 'Node.js', letter: 'No' },
+    { name: 'Angular', letter: 'Ng' },
+    { name: 'Vue.js', letter: 'V' },
+    { name: 'Next.js', letter: 'Nx' },
+    { name: 'TypeScript', letter: 'TS' },
+    { name: 'Python', letter: 'Py' },
+    { name: 'Django', letter: 'Dj' },
+    { name: 'PostgreSQL', letter: 'PG' },
+    { name: 'MySQL', letter: 'My' },
+    { name: 'Redis', letter: 'Re' },
+    { name: 'Docker', letter: 'Do' },
+    { name: 'Kubernetes', letter: 'K8' },
+    { name: 'AWS', letter: 'AW' },
+    { name: 'Firebase', letter: 'Fb' },
+    { name: 'GraphQL', letter: 'GQ' },
+    { name: 'Tailwind', letter: 'TW' },
+    { name: 'Flutter', letter: 'Fl' },
+    { name: 'React Native', letter: 'RN' },
+    { name: 'Linux', letter: 'Li' },
+    { name: 'Git', letter: 'Gt' },
 ];
 
 const LogoItem = ({ name, letter }) => (
@@ -25,7 +40,7 @@ export default function TrustedBy() {
     return (
         <section className="trusted">
             <div className="trusted__headline">
-                <span className="trusted__label">Trusted by industry leaders</span>
+                <span className="trusted__label">We Have Expertise in </span>
             </div>
 
             <div className="trusted__marquee-wrap">

@@ -1,5 +1,5 @@
 .trusted {
-    background: var(--surface);
+    background: var(--bg);
     padding: 56px 0;
     overflow: hidden;
     border-top: 1px solid var(--border);
@@ -31,7 +31,7 @@
     align-items: center;
     gap: 0;
     width: max-content;
-    animation: marquee 28s linear infinite;
+    animation: marquee 55s linear infinite;
 }
 
 .trusted__track:hover {
@@ -43,7 +43,7 @@
     align-items: center;
     gap: 10px;
     padding: 0 48px;
-    opacity: 0.4;
+    opacity: 0.85;
     transition: opacity 0.3s ease;
     cursor: default;
     flex-shrink: 0;
@@ -57,34 +57,34 @@
     width: 38px;
     height: 38px;
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: var(--surface);
+    border: 1px solid var(--border);
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: var(--font-heading);
     font-size: 12px;
     font-weight: 700;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--primary);
     letter-spacing: 0.05em;
 }
 
 .trusted__logo:hover .trusted__logo-icon {
     border-color: var(--accent);
     color: var(--accent);
-    background: rgba(0, 200, 255, 0.06);
+    background: var(--accent-dim);
 }
 
 .trusted__logo-name {
     font-family: var(--font-heading);
     font-size: 16px;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.5);
+    font-weight: 700;
+    color: var(--primary);
     letter-spacing: -0.01em;
 }
 
 .trusted__logo:hover .trusted__logo-name {
-    color: #fff;
+    color: var(--primary);
 }
 
 /* Fade masks */
@@ -99,10 +99,10 @@
 
 .trusted__fade--left {
     left: 0;
-    background: linear-gradient(90deg, var(--surface) 0%, transparent 100%);
+    background: linear-gradient(90deg, var(--bg) 0%, transparent 100%);
 }
 
 .trusted__fade--right {
     right: 0;
-    background: linear-gradient(270deg, var(--surface) 0%, transparent 100%);
+    background: linear-gradient(270deg, var(--bg) 0%, transparent 100%);
 }

@@ -4,10 +4,10 @@
     display: flex;
     align-items: center;
     overflow: hidden;
-    background: var(--primary);
+    background: var(--bg);
 }
 
-/* Video */
+/* Video — very faint on light bg, acts as subtle texture */
 .hero__video {
     position: absolute;
     inset: 0;
@@ -16,26 +16,39 @@
     object-fit: cover;
     object-position: center;
     z-index: 0;
-    opacity: 0.55;
+    opacity: 0.05;
+    filter: saturate(0) brightness(0.5);
 }
 
-/* Navy gradient overlay */
+/* Light gradient overlay */
 .hero__overlay-navy {
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: linear-gradient(135deg, rgba(10, 15, 44, 0.88) 55%, rgba(10, 15, 44, 0.2) 100%),
-        linear-gradient(180deg, rgba(10, 15, 44, 0.3) 0%, rgba(10, 15, 44, 0.7) 100%);
+    background:
+        radial-gradient(ellipse 80% 70% at 20% 50%, rgba(0, 153, 200, 0.07) 0%, transparent 65%),
+        radial-gradient(ellipse 60% 80% at 90% 20%, rgba(0, 200, 255, 0.05) 0%, transparent 60%),
+        linear-gradient(135deg, #FAFBFF 0%, #EFF4FF 55%, #F5FAFF 100%);
 }
 
-/* Circuit SVG */
+/* Circuit SVG — uses dark navy lines at very low opacity */
 .hero__circuit {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     z-index: 2;
-    animation: pulse-glow 4s ease-in-out infinite;
+    animation: pulse-glow 5s ease-in-out infinite;
+}
+
+/* Re-tint circuit paths for light bg via CSS filter */
+.hero__circuit path,
+.hero__circuit rect {
+    stroke: rgba(10, 15, 44, 0.07) !important;
+}
+
+.hero__circuit circle {
+    fill: rgba(10, 15, 44, 0.1) !important;
 }
 
 /* Content */
@@ -45,65 +58,75 @@
     width: 100%;
     padding-top: 140px;
     padding-bottom: 100px;
+    display: flex;
+    justify-content: center;
 }
 
 .hero__text {
     max-width: 680px;
     display: flex;
     flex-direction: column;
-    gap: 28px;
+    align-items: center;
+    gap: 24px;
+    text-align: center;
 }
 
 .hero__eyebrow {
+    color: var(--accent) !important;
     animation: fadeUp 0.8s 0.1s ease both;
 }
 
 .hero__h1 {
-    font-size: clamp(42px, 5.5vw, 72px);
-    font-weight: 700;
-    line-height: 1.08;
-    letter-spacing: -0.03em;
-    color: #fff;
-    animation: fadeUp 0.8s 0.25s ease both;
+    font-size: clamp(36px, 4.8vw, 62px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    color: var(--primary);
+    animation: none;
 }
 
 .hero__h1--accent {
-    color: var(--accent);
+    /* Gradient navy → cyan on light background */
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     display: inline-block;
 }
 
 .hero__sub {
-    font-size: 18px;
+    font-size: 17px;
     color: var(--text-secondary);
-    max-width: 520px;
+    max-width: 480px;
     line-height: 1.75;
-    animation: fadeUp 0.8s 0.4s ease both;
 }
 
 /* CTAs */
 .hero__ctas {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 16px;
     flex-wrap: wrap;
-    animation: fadeUp 0.8s 0.55s ease both;
 }
+
+/* Secondary button — uses global --accent so it's cyan on light bg */
 
 /* Stats */
 .hero__stats {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0;
     flex-wrap: wrap;
-    margin-top: 8px;
-    animation: fadeUp 0.8s 0.7s ease both;
+    margin-top: 4px;
 }
 
 .hero__stat {
     display: flex;
     flex-direction: column;
-    gap: 2px;
-    padding: 0 28px;
+    gap: 4px;
+    padding: 0 32px;
 }
 
 .hero__stat:first-child {
@@ -112,8 +135,8 @@
 
 .hero__stat-value {
     font-family: var(--font-heading);
-    font-size: 26px;
-    font-weight: 700;
+    font-size: 28px;
+    font-weight: 800;
     color: var(--accent);
     line-height: 1;
 }
@@ -122,13 +145,13 @@
     font-size: 12px;
     color: var(--text-muted);
     font-weight: 500;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.05em;
 }
 
 .hero__stat-divider {
     width: 1px;
     height: 44px;
-    background: rgba(255, 255, 255, 0.12);
+    background: var(--border);
     flex-shrink: 0;
 }
 
@@ -160,18 +183,66 @@
     color: var(--text-muted);
 }
 
-/* Bottom gradient line */
+/* ── Scroll Reveal — 3 steps ── */
+.hero__reveal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.hero__reveal--in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hero__reveal--delay1 {
+    transition-delay: 0.15s;
+}
+
+.hero__reveal--delay2 {
+    transition-delay: 0.3s;
+}
+
+/* Bottom gradient line — subtle accent line at section boundary */
 .hero__bottom-line {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    background: linear-gradient(90deg, transparent, var(--accent), var(--accent-bright), transparent);
     z-index: 4;
+    opacity: 0.5;
+}
+
+/* ---- Floating decoration (right side) ---- */
+.hero__deco {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 45%;
+    max-width: 580px;
+    height: 100%;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
 }
 
 /* Mobile */
+@media (max-width: 1024px) {
+    .hero__deco {
+        display: none;
+    }
+}
+
 @media (max-width: 768px) {
     .hero__content {
         padding-top: 120px;
@@ -182,11 +253,11 @@
     }
 
     .hero__stat {
-        padding: 0 16px;
+        padding: 0 18px;
     }
 
     .hero__stat-value {
-        font-size: 20px;
+        font-size: 22px;
     }
 
     .hero__ctas {
@@ -196,10 +267,6 @@
     .btn-lg {
         padding: 14px 24px;
         font-size: 15px;
-    }
-
-    .hero__stats {
-        gap: 0;
     }
 }
 

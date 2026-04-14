@@ -21,7 +21,7 @@
     letter-spacing: 0.25em;
     text-transform: uppercase;
     color: var(--accent);
-    opacity: 0.7;
+    opacity: 0.6;
 }
 
 /* Header */
@@ -46,7 +46,7 @@
     gap: 24px;
 }
 
-/* Card */
+/* Card — white with subtle shadow */
 .services__card {
     padding: 36px 32px 28px;
     display: flex;
@@ -55,6 +55,17 @@
     cursor: default;
     position: relative;
     overflow: hidden;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    border-radius: var(--radius-card);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.services__card:hover {
+    border-color: var(--border-cyan);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-6px);
 }
 
 .services__card::before {
@@ -63,9 +74,10 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-bright), transparent);
     transform: scaleX(0);
+    transform-origin: left;
     transition: transform 0.4s ease;
 }
 

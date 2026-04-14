@@ -1,9 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import './Services.css';
 
 const services = [
     {
+        tab: 'cybersecurity',
         icon: (
             <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M16 2L2 9l14 7 14-7L16 2z" />
@@ -15,6 +17,7 @@ const services = [
         desc: 'Harden your perimeter with AI-driven threat detection, SIEM integration, and Zero Trust architecture frameworks.',
     },
     {
+        tab: 'cloud',
         icon: (
             <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="2" y="8" width="28" height="18" rx="2" />
@@ -27,6 +30,7 @@ const services = [
         desc: 'Architect scalable AWS, GCP, and Azure environments with full CI/CD pipelines, IaC, and SRE best practices.',
     },
     {
+        tab: 'software',
         icon: (
             <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="7 8 2 12 7 16" />
@@ -38,6 +42,7 @@ const services = [
         desc: 'From micro-frontends to distributed backends — we ship production software with clean architecture and rigorous testing.',
     },
     {
+        tab: 'consulting',
         icon: (
             <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="16" cy="16" r="14" />
@@ -48,6 +53,7 @@ const services = [
         desc: 'Board-level technology advisory — digital transformation roadmaps, vendor evaluation, and CTO-as-a-Service engagements.',
     },
     {
+        tab: 'managed',
         icon: (
             <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="2" y="4" width="28" height="20" rx="2" />
@@ -61,6 +67,7 @@ const services = [
         desc: '24/7 NOC operations, proactive monitoring, end-user support, and guaranteed SLAs across your entire IT estate.',
     },
     {
+        tab: 'data',
         icon: (
             <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M8 16h6l3-9 4 18 3-9h4" />
@@ -103,9 +110,12 @@ export default function Services() {
                             <div className="services__card-icon">{s.icon}</div>
                             <h3 className="services__card-title">{s.title}</h3>
                             <p className="services__card-desc">{s.desc}</p>
-                            <a href="#contact" className="services__card-link">
+                            <Link
+                                to={`/services?tab=${s.tab}`}
+                                className="services__card-link"
+                            >
                                 Learn more <span className="services__card-arrow">→</span>
-                            </a>
+                            </Link>
                         </div>
                     ))}
                 </div>

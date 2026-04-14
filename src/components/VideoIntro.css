@@ -1,0 +1,47 @@
+/* ── Video Intro Overlay ── */
+.vi {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: #000;
+    opacity: 1;
+    transition: opacity 0.9s ease;
+}
+
+.vi--fade {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.vi__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+/* Skip button */
+.vi__skip {
+    position: absolute;
+    bottom: 40px;
+    right: 48px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.85);
+    font-family: var(--font-heading);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    padding: 10px 22px;
+    border-radius: 100px;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.vi__skip:hover {
+    background: rgba(255, 255, 255, 0.25);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.6);
+}
