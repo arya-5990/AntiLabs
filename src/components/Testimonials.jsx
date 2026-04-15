@@ -27,6 +27,30 @@ const testimonials = [
         initials: 'AR',
         color: '#34D399',
     },
+    {
+        quote: "AntiLabs delivered an exceptional custom ERP system for our manufacturing facilities. The latency dropped by 80%, and our data sync issues disappeared completely.",
+        author: 'Ramesh Gupta',
+        title: 'Director of IT',
+        company: 'SteelWorks India',
+        initials: 'RG',
+        color: '#F59E0B',
+    },
+    {
+        quote: "Their approach to cloud architecture saved us over $50k annually in AWS costs while actually improving performance. Truly elite engineers.",
+        author: 'Sarah Jenkins',
+        title: 'VP Ops',
+        company: 'TechFlow',
+        initials: 'SJ',
+        color: '#EF4444',
+    },
+    {
+        quote: "AntiLabs built our SaaS platform from the ground up in record time. Their code quality and testing standards are world-class, making handover seamless.",
+        author: "David O'Connor",
+        title: 'CEO',
+        company: 'MetricNova',
+        initials: 'DO',
+        color: '#3B82F6',
+    },
 ];
 
 const QuoteIcon = ({ color }) => (
@@ -36,7 +60,6 @@ const QuoteIcon = ({ color }) => (
 );
 
 export default function Testimonials() {
-    const [active, setActive] = useState(1);
     const { ref, visible } = useScrollReveal();
 
     return (
@@ -47,30 +70,28 @@ export default function Testimonials() {
                     <h2 className="section-title">What Our Clients Say</h2>
                 </div>
 
-                <div className="testimonials__grid">
-                    {testimonials.map((t, i) => (
-                        <div
-                            key={t.author}
-                            className={`glass-card testimonials__card ${active === i ? 'testimonials__card--active' : ''} ${visible ? 'animate-fade-up' : ''}`}
-                            style={{ animationDelay: `${0.1 + i * 0.12}s`, '--t-color': t.color }}
-                            onClick={() => setActive(i)}
-                            role="button"
-                            tabIndex={0}
-                            onKeyDown={e => e.key === 'Enter' && setActive(i)}
-                        >
-                            <QuoteIcon color={t.color} />
-                            <p className="testimonials__quote">"{t.quote}"</p>
-                            <div className="testimonials__author">
-                                <div className="testimonials__avatar" style={{ borderColor: t.color }}>
-                                    <span style={{ color: t.color }}>{t.initials}</span>
-                                </div>
-                                <div className="testimonials__author-info">
-                                    <div className="testimonials__name">{t.author}</div>
-                                    <div className="testimonials__role">{t.title} · <span className="testimonials__company">{t.company}</span></div>
+                <div className="testimonials__marquee-container">
+                    <div className="testimonials__marquee-track">
+                        {[...testimonials, ...testimonials].map((t, i) => (
+                            <div
+                                key={`${t.author}-${i}`}
+                                className={`glass-card testimonials__card`}
+                                style={{ '--t-color': t.color }}
+                            >
+                                <QuoteIcon color={t.color} />
+                                <p className="testimonials__quote">"{t.quote}"</p>
+                                <div className="testimonials__author">
+                                    <div className="testimonials__avatar" style={{ borderColor: t.color }}>
+                                        <span style={{ color: t.color }}>{t.initials}</span>
+                                    </div>
+                                    <div className="testimonials__author-info">
+                                        <div className="testimonials__name">{t.author}</div>
+                                        <div className="testimonials__role">{t.title} · <span className="testimonials__company">{t.company}</span></div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>

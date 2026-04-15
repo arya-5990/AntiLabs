@@ -199,7 +199,7 @@ function ServiceDetail({ service }) {
                     </div>
                 </div>
 
-                <Link to="/#contact" className="btn btn-primary sp__cta">
+                <Link to="/contact" className="btn btn-primary sp__cta">
                     Start this engagement →
                 </Link>
             </div>
@@ -294,7 +294,7 @@ export default function ServicesPage() {
                     <div className="container sp__cta-inner">
                         <h2 className="sp__cta-h2">Not sure which service fits your needs?</h2>
                         <p className="sp__cta-sub">Book a free 30-minute discovery call — we'll map the right engagement model for your goals.</p>
-                        <Link to="/#contact" className="btn btn-primary btn-lg">Schedule a Free Consultation →</Link>
+                        <Link to="/contact" className="btn btn-primary btn-lg">Schedule a Free Consultation →</Link>
                     </div>
                 </section>
 

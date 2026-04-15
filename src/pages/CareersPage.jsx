@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import { supabase } from '../supabase';
 import './CareersPage.css';
 
 /* ── Data ──────────────────────────────────── */
@@ -29,78 +30,40 @@ const perks = [
     },
 ];
 
-const openRoles = [
-    {
-        id: 1,
-        title: 'Full Stack Engineer',
-        team: 'Engineering',
-        type: 'Full-time',
-        location: 'Remote (India)',
-        tags: ['React', 'Node.js', 'MongoDB'],
-        desc: 'Build end-to-end features for client products. Own your code from design to deployment.',
-    },
-    {
-        id: 2,
-        title: 'DevOps / Cloud Engineer',
-        team: 'Infrastructure',
-        type: 'Full-time',
-        location: 'Remote (India)',
-        tags: ['AWS', 'Terraform', 'Kubernetes'],
-        desc: 'Design and maintain cloud infrastructure for high-availability, cost-optimised environments.',
-    },
-    {
-        id: 3,
-        title: 'Cybersecurity Analyst',
-        team: 'Security',
-        type: 'Full-time',
-        location: 'Remote / Bangalore',
-        tags: ['SIEM', 'Pen Testing', 'Zero Trust'],
-        desc: 'Conduct security assessments, penetration tests, and help clients achieve compliance milestones.',
-    },
-    {
-        id: 4,
-        title: 'UI/UX Designer',
-        team: 'Design',
-        type: 'Full-time',
-        location: 'Remote (India)',
-        tags: ['Figma', 'Design Systems', 'Research'],
-        desc: 'Craft elegant, accessible interfaces that make complex enterprise software a joy to use.',
-    },
-    {
-        id: 5,
-        title: 'Technical Project Manager',
-        team: 'Delivery',
-        type: 'Full-time',
-        location: 'Remote / Bangalore',
-        tags: ['Agile', 'Scrum', 'Client Management'],
-        desc: 'Keep projects on track, stakeholders aligned, and engineers unblocked.',
-    },
-];
-
 /* ── Role Card ─────────────────────────────── */
 function RoleCard({ role }) {
     const [open, setOpen] = useState(false);
+
     return (
         <div className={`cp__role-card ${open ? 'cp__role-card--open' : ''}`}>
             <div className="cp__role-header" onClick={() => setOpen(!open)}>
                 <div className="cp__role-left">
-                    <h3 className="cp__role-title">{role.title}</h3>
-                    <div className="cp__role-meta">
-                        <span className="cp__role-team">{role.team}</span>
-                        <span className="cp__role-dot">·</span>
-                        <span>{role.type}</span>
-                        <span className="cp__role-dot">·</span>
-                        <span>{role.location}</span>
+                    <div className="cp__role-title-wrap">
+                        <h3 className="cp__role-title">{role.title}</h3>
+                        {role.duration && <span className="cp__role-duration">{role.duration}</span>}
                     </div>
-                    <div className="cp__role-tags">
-                        {role.tags.map(t => <span className="cp__tag" key={t}>{t}</span>)}
+                    <div className="cp__role-meta">
+                        <span className="cp__role-team">{role.type}</span>
+                        {role.work_location && (
+                            <>
+                                <span className="cp__role-dot">·</span>
+                                <span>{role.work_location}</span>
+                            </>
+                        )}
                     </div>
                 </div>
-                <div className="cp__role-chevron">{open ? '−' : '+'}</div>
+                <div className="cp__role-right">
+                    {role.compensation && (
+                        <div className="cp__role-compensation">
+                            {role.compensation}
+                        </div>
+                    )}
+                    <div className="cp__role-chevron">{open ? '−' : '+'}</div>
+                </div>
             </div>
             {open && (
                 <div className="cp__role-body">
-                    <p className="cp__role-desc">{role.desc}</p>
+                    <p className="cp__role-desc">{role.description}</p>
                     <a
                         href={`mailto:careers@antilabs.io?subject=Application — ${role.title}`}
                         className="btn btn-primary"
@@ -125,6 +88,33 @@ function RevealSection({ children, className = '' }) {
 
 export default function CareersPage() {
     const hero = useScrollReveal({ threshold: 0.01 });
+    const [openRoles, setOpenRoles] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function fetchRoles() {
+            const { data, error } = await supabase
+                .from('Careers')
+                .select('*')
+                .eq('status', 'Open')
+                .order('created_at', { ascending: false });
+
+            if (!error && data) {
+                const sortedData = [...data].sort((a, b) => {
+                    const valA = a.compensation ? parseInt(a.compensation.replace(/\D/g, ''), 10) || 0 : 0;
+                    const valB = b.compensation ? parseInt(b.compensation.replace(/\D/g, ''), 10) || 0 : 0;
+
+                    if (valB !== valA) {
+                        return valB - valA;
+                    }
+                    return new Date(b.created_at) - new Date(a.created_at);
+                });
+                setOpenRoles(sortedData);
+            }
+            setLoading(false);
+        }
+        fetchRoles();
+    }, []);
 
     return (
         <>
@@ -180,16 +170,22 @@ export default function CareersPage() {
                         <RevealSection>
                             <div className="cp__roles-header">
                                 <span className="section-eyebrow">Open Positions</span>
-                                <h2 className="cp__section-h2">We're Hiring Across {openRoles.length} Roles</h2>
+                                <h2 className="cp__section-h2">We're Hiring Across {loading ? "..." : openRoles.length} Roles</h2>
                                 <p className="cp__roles-sub">
                                     All roles are remote-friendly. We hire for attitude and craft — not just credentials.
                                 </p>
                             </div>
                         </RevealSection>
                         <div className="cp__roles-list">
-                            {openRoles.map(role => (
-                                <RoleCard key={role.id} role={role} />
-                            ))}
+                            {loading ? (
+                                <p style={{ textAlign: 'center', padding: '2rem' }}>Loading open positions...</p>
+                            ) : openRoles.length === 0 ? (
+                                <p style={{ textAlign: 'center', padding: '2rem' }}>No open positions at the moment, but feel free to send a general application!</p>
+                            ) : (
+                                openRoles.map(role => (
+                                    <RoleCard key={role.posting_id} role={role} />
+                                ))
+                            )}
                         </div>
                     </div>
                 </section>

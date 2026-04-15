@@ -7,6 +7,7 @@ const navItems = [
     { label: 'About', route: '/about' },
     { label: 'Services', route: '/services' },
     { label: 'Careers', route: '/careers' },
+    { label: 'Testimonials', route: '/testimonials' },
 ];
 
 const Logo = () => (
@@ -48,7 +49,7 @@ export default function Navbar() {
                 </ul>
 
                 <div className="navbar__actions">
-                    <NavLink to="/#contact" className="btn btn-secondary navbar__btn-contact">Contact Us</NavLink>
+                    <NavLink to="/contact" className="btn btn-secondary navbar__btn-contact">Contact Us</NavLink>
                     <NavLink to="/#get-started" className="btn btn-primary navbar__btn-cta">Get Started</NavLink>
                 </div>
 

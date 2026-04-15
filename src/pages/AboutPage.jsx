@@ -208,7 +208,7 @@ export default function AboutPage() {
                         <h2 className="ap__cta-h2">Ready to work with a team that actually cares?</h2>
                         <p className="ap__cta-sub">Let's start with a free 30-minute discovery call — no commitment, full candour.</p>
                         <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
-                            <Link to="/#contact" className="btn btn-primary btn-lg">Get in Touch →</Link>
+                            <Link to="/contact" className="btn btn-primary btn-lg">Get in Touch →</Link>
                             <Link to="/careers" className="btn btn-secondary btn-lg" style={{ borderColor: 'rgba(255,255,255,0.4)', color: '#fff' }}>Join Our Team</Link>
                         </div>
                     </div>

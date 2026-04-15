@@ -193,11 +193,27 @@
     gap: 8px;
 }
 
+.cp__role-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
 .cp__role-title {
     font-family: var(--font-heading);
     font-size: 17px;
     font-weight: 700;
     color: var(--primary);
+}
+
+.cp__role-duration {
+    font-size: 12px;
+    background: rgba(0, 153, 200, 0.08);
+    color: var(--accent);
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-weight: 600;
 }
 
 .cp__role-meta {
@@ -234,6 +250,28 @@
     background: rgba(0, 153, 200, 0.08);
     color: var(--accent);
     border: 1px solid rgba(0, 153, 200, 0.2);
+}
+
+.cp__role-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.cp__role-compensation {
+    background: linear-gradient(135deg, rgba(0, 200, 160, 0.1) 0%, rgba(0, 200, 160, 0.15) 100%);
+    color: #009677;
+    /* Deeper high-contrast green */
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14.5px;
+    border: 1px solid rgba(0, 200, 160, 0.25);
+    box-shadow: 0 4px 12px rgba(0, 200, 160, 0.08);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .cp__role-chevron {
@@ -366,6 +404,14 @@
 
     .cp__role-header {
         padding: 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .cp__role-right {
+        width: 100%;
+        justify-content: space-between;
     }
 
     .cp__role-body {

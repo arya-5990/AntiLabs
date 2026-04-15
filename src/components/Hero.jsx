@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Hero.css';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 
@@ -64,12 +65,12 @@ export default function Hero() {
                             Enterprise cybersecurity, cloud architecture, and custom software — built to scale with your ambitions.
                         </p>
                         <div className="hero__ctas">
-                            <a href="#services" className="btn btn-primary btn-lg">
+                            <Link to="/services" className="btn btn-primary btn-lg">
                                 Start a Project →
-                            </a>
-                            <a href="#case-studies" className="btn btn-secondary btn-lg">
-                                View Case Studies
-                            </a>
+                            </Link>
+                            <Link to="/testimonials" className="btn btn-secondary btn-lg">
+                                Testimonials
+                            </Link>
                         </div>
                     </div>
 

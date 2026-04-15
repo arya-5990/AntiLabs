@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Footer.css';
 
 const Logo = () => (
@@ -95,38 +96,22 @@ export default function Footer() {
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" />
                                 </svg>
-                                <span>42 Innovation Drive, Bangalore — 560 001, India</span>
+                                <span>BITS Pilani, KK Birla Goa campus, NH 17B, Bypass Road, Zuarinagar, Mormugao Taluka, Goa 403726, India</span>
                             </div>
                             <div className="footer__contact-item">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" />
                                 </svg>
-                                <a href="mailto:hello@antilabs.io" className="footer__link">hello@antilabs.io</a>
+                                <a href="mailto:hello.antilabs@gmail.com" className="footer__link">hello.antilabs@gmail.com</a>
                             </div>
                             <div className="footer__contact-item">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                     <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.85 5c0-1.18.9-2.16 2-2.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L10.09 10.9a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
                                 </svg>
-                                <a href="tel:+918012345678" className="footer__link">+91 80 1234 5678</a>
+                                <a href="tel:+917049780160" className="footer__link">+91 7049780160</a>
                             </div>
                         </div>
-                        {/* Map placeholder — light theme */}
-                        <div className="footer__map">
-                            <div className="footer__map-inner">
-                                <svg viewBox="0 0 200 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
-                                    <rect width="200" height="100" fill="#F0F4FF" />
-                                    <line x1="0" y1="25" x2="200" y2="25" stroke="rgba(10,15,44,0.07)" strokeWidth="1" />
-                                    <line x1="0" y1="50" x2="200" y2="50" stroke="rgba(10,15,44,0.07)" strokeWidth="1" />
-                                    <line x1="0" y1="75" x2="200" y2="75" stroke="rgba(10,15,44,0.07)" strokeWidth="1" />
-                                    <line x1="50" y1="0" x2="50" y2="100" stroke="rgba(10,15,44,0.07)" strokeWidth="1" />
-                                    <line x1="100" y1="0" x2="100" y2="100" stroke="rgba(10,15,44,0.07)" strokeWidth="1" />
-                                    <line x1="150" y1="0" x2="150" y2="100" stroke="rgba(10,15,44,0.07)" strokeWidth="1" />
-                                    <circle cx="96" cy="48" r="8" fill="rgba(0,153,200,0.18)" stroke="#0099C8" strokeWidth="1.5" />
-                                    <circle cx="96" cy="48" r="3" fill="#0099C8" />
-                                    <text x="100" y="44" fontFamily="Inter,sans-serif" fontSize="8" fill="rgba(10,15,44,0.55)">AntiLabs HQ</text>
-                                </svg>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -138,7 +123,7 @@ export default function Footer() {
                     <div className="footer__bottom-links">
                         <a href="#" className="footer__link footer__link--sm">Privacy Policy</a>
                         <span className="footer__dot">·</span>
-                        <a href="#" className="footer__link footer__link--sm">Terms of Service</a>
+                        <Link to="/terms" className="footer__link footer__link--sm">Terms of Service</Link>
                         <span className="footer__dot">·</span>
                         <a href="#" className="footer__link footer__link--sm">Cookie Policy</a>
                     </div>

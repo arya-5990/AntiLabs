@@ -103,7 +103,7 @@ export default function CaseStudy() {
                         ))}
                     </div>
 
-                    <a href="#contact" className="btn btn-primary cs__cta">
+                    <a href="/contact" className="btn btn-primary cs__cta">
                         Read Full Case Study →
                     </a>
                 </div>
