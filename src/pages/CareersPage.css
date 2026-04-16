@@ -315,6 +315,34 @@
     font-size: 15px;
     color: var(--text-secondary);
     line-height: 1.75;
+    white-space: pre-wrap;
+}
+
+.cp__role-desc-formatted {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cp__role-section {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.cp__role-section-h4 {
+    font-family: var(--font-heading);
+    font-size: 15.5px;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 0;
+}
+
+.cp__role-section-p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    margin: 0;
 }
 
 /* ── General Application ─────────────────── */

@@ -14,7 +14,14 @@ const Logo = () => (
 );
 
 const links = {
-    services: ['Cybersecurity', 'Cloud & DevOps', 'Custom Software', 'IT Consulting', 'Managed Services', 'Data Engineering'],
+    services: [
+        { name: 'Cybersecurity', id: 'cybersecurity' },
+        { name: 'Cloud & DevOps', id: 'cloud' },
+        { name: 'Custom Software', id: 'software' },
+        { name: 'IT Consulting', id: 'consulting' },
+        { name: 'Managed Services', id: 'managed' },
+        { name: 'Data Engineering', id: 'data' }
+    ],
     company: ['About Us', 'Team', 'Careers', 'Partners', 'Press', 'Legal'],
     resources: ['Blog', 'Documentation', 'Case Studies', 'Whitepapers', 'API Reference', 'Status Page'],
 };
@@ -68,7 +75,11 @@ export default function Footer() {
                     <div className="footer__col">
                         <h4 className="footer__col-title">Services</h4>
                         <ul className="footer__links">
-                            {links.services.map(l => <li key={l}><a href="#services" className="footer__link">{l}</a></li>)}
+                            {links.services.map(s => (
+                                <li key={s.id}>
+                                    <Link to={`/services?tab=${s.id}`} className="footer__link">{s.name}</Link>
+                                </li>
+                            ))}
                         </ul>
                     </div>
 
@@ -76,7 +87,11 @@ export default function Footer() {
                     <div className="footer__col">
                         <h4 className="footer__col-title">Company</h4>
                         <ul className="footer__links">
-                            {links.company.map(l => <li key={l}><a href="#about" className="footer__link">{l}</a></li>)}
+                            {links.company.map(l => (
+                                <li key={l}>
+                                    <Link to="/about" className="footer__link">{l}</Link>
+                                </li>
+                            ))}
                         </ul>
                     </div>
 

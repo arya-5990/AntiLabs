@@ -19,6 +19,9 @@ import CareersPage from './pages/CareersPage';
 import ContactPage from './pages/ContactPage';
 import TestimonialsPage from './pages/TestimonialsPage';
 import TermsPage from './pages/TermsPage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import ProfilePage from './pages/ProfilePage';
 import './App.css';
 
 function HomePage() {
@@ -64,6 +67,9 @@ export default function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/testimonials" element={<TestimonialsPage />} />
         <Route path="/terms" element={<TermsPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
     </>
   );

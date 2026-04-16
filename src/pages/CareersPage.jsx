@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { supabase } from '../supabase';
+import ApplicationModal from '../components/ApplicationModal';
 import './CareersPage.css';
 
 /* ── Data ──────────────────────────────────── */
@@ -31,7 +32,7 @@ const perks = [
 ];
 
 /* ── Role Card ─────────────────────────────── */
-function RoleCard({ role }) {
+function RoleCard({ role, onApply }) {
     const [open, setOpen] = useState(false);
 
     return (
@@ -63,13 +64,13 @@ function RoleCard({ role }) {
             </div>
             {open && (
                 <div className="cp__role-body">
-                    <p className="cp__role-desc">{role.description}</p>
-                    <a
-                        href={`mailto:careers@antilabs.io?subject=Application — ${role.title}`}
+                    <FormattedDescription text={role.description} />
+                    <button
+                        onClick={() => onApply(role)}
                         className="btn btn-primary"
                     >
                         Apply for this role →
-                    </a>
+                    </button>
                 </div>
             )}
         </div>
@@ -86,10 +87,72 @@ function RevealSection({ children, className = '' }) {
     );
 }
 
+/* ── Formatted Description ─────────────────── */
+function FormattedDescription({ text }) {
+    if (!text) return null;
+
+    // Detect if the text uses inline headers ending in colons
+    const headers = [
+        "Program Overview",
+        "Training Details",
+        "What You Will Learn",
+        "Selection & Internship Opportunity",
+        "Selection Criteria",
+        "Certification & Benefits",
+        "Additional Information",
+        "Responsibilities",
+        "Requirements",
+        "About the Role",
+        "Qualifications",
+        "Benefits",
+        "Perks",
+        "Key Responsibilities",
+        "Who You Are"
+    ];
+
+    const escapedHeaders = headers.map(h => h.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+    const regex = new RegExp(`(${escapedHeaders.join('|')}):`, 'gi');
+
+    // Split text based on headers. The split array will have text, header, text, header...
+    const parts = text.split(regex);
+
+    // Default rendering with pre-wrap if no headers match
+    if (parts.length <= 1) {
+        return <div className="cp__role-desc" style={{ whiteSpace: 'pre-wrap' }}>{text}</div>;
+    }
+
+    const blocks = [];
+    if (parts[0].trim()) {
+        blocks.push({ type: 'intro', content: parts[0].trim() });
+    }
+
+    for (let i = 1; i < parts.length; i += 2) {
+        const header = parts[i];
+        const content = parts[i + 1] ? parts[i + 1].trim() : '';
+        blocks.push({ type: 'section', header, content });
+    }
+
+    return (
+        <div className="cp__role-desc-formatted">
+            {blocks.map((block, idx) => (
+                <div key={idx} className="cp__role-section">
+                    {block.type === 'section' && (
+                        <h4 className="cp__role-section-h4">{block.header}</h4>
+                    )}
+                    <div className="cp__role-section-p" style={{ whiteSpace: 'pre-wrap' }}>
+                        {block.content}
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
+}
+
 export default function CareersPage() {
     const hero = useScrollReveal({ threshold: 0.01 });
     const [openRoles, setOpenRoles] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [applyingRole, setApplyingRole] = useState(null);
 
     useEffect(() => {
         async function fetchRoles() {
@@ -183,39 +246,20 @@ export default function CareersPage() {
                                 <p style={{ textAlign: 'center', padding: '2rem' }}>No open positions at the moment, but feel free to send a general application!</p>
                             ) : (
                                 openRoles.map(role => (
-                                    <RoleCard key={role.posting_id} role={role} />
+                                    <RoleCard key={role.posting_id} role={role} onApply={setApplyingRole} />
                                 ))
                             )}
                         </div>
                     </div>
                 </section>
 
-                {/* ── General Application ── */}
-                <section className="cp__general section-py">
-                    <div className="container cp__general-inner">
-                        <RevealSection>
-                            <div className="cp__general-card glass-card">
-                                <span className="cp__general-emoji">📬</span>
-                                <h3 className="cp__general-h3">Don't see your role?</h3>
-                                <p className="cp__general-desc">
-                                    We're always looking for exceptional people. Send us your CV and a note about what you'd like to build — we'll reach out if there's a fit.
-                                </p>
-                                <a
-                                    href="mailto:careers@antilabs.io?subject=General Application"
-                                    className="btn btn-primary"
-                                >
-                                    Send a General Application →
-                                </a>
-                            </div>
-                        </RevealSection>
-                    </div>
-                </section>
+
 
                 {/* ── Bottom CTA ── */}
                 <section className="cp__cta-strip">
                     <div className="container cp__cta-inner">
                         <h2 className="cp__cta-h2">Questions about working at AntiLabs?</h2>
-                        <p className="cp__cta-sub">Reach us at <a href="mailto:careers@antilabs.io" className="cp__cta-link">careers@antilabs.io</a> — we reply to every message.</p>
+                        <p className="cp__cta-sub">Reach us at <a href="mailto:careers.antilabs@gmail.com" className="cp__cta-link">careers.antilabs@gmail.com</a> — we reply to every message.</p>
                         <Link to="/about" className="btn btn-primary btn-lg" style={{ background: '#fff', color: 'var(--primary)', borderColor: '#fff' }}>
                             Learn More About Us →
                         </Link>
@@ -224,6 +268,13 @@ export default function CareersPage() {
 
             </main>
             <Footer />
+
+            {applyingRole && (
+                <ApplicationModal
+                    role={applyingRole}
+                    onClose={() => setApplyingRole(null)}
+                />
+            )}
         </>
     );
 }

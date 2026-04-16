@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import './Navbar.css';
 
 const navItems = [
@@ -19,6 +20,7 @@ const Logo = () => (
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
+    const { user } = useAuth();
 
     useEffect(() => {
         const handler = () => setScrolled(window.scrollY > 40);
@@ -50,7 +52,16 @@ export default function Navbar() {
 
                 <div className="navbar__actions">
                     <NavLink to="/contact" className="btn btn-secondary navbar__btn-contact">Contact Us</NavLink>
-                    <NavLink to="/#get-started" className="btn btn-primary navbar__btn-cta">Get Started</NavLink>
+                    {user ? (
+                        <NavLink to="/profile" className="btn btn-primary navbar__btn-cta" style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 16px' }}>
+                            <div style={{ width: '24px', height: '24px', backgroundColor: '#fff', color: '#0ea5e9', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>
+                                {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                            </div>
+                            Profile
+                        </NavLink>
+                    ) : (
+                        <NavLink to="/login" className="btn btn-primary navbar__btn-cta">Login</NavLink>
+                    )}
                 </div>
 
                 <button
