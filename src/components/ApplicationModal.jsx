@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import { load } from '@cashfreepayments/cashfree-js';
 import { supabase } from '../supabase';
 import { useAuth } from '../context/AuthContext';
@@ -82,11 +82,11 @@ function FileZone({ label, hint, accept, maxSizeMB, file, onChange }) {
                     onChange={onChange}
                     title=""
                 />
-                <span className="am__file-icon">{file ? '✅' : '📎'}</span>
+                <span className={`am__file-icon${file ? " has-file" : ""}`}>{file ? Icon.check : Icon.upload}</span>
                 {file ? (
                     <>
-                        <p className="am__file-zone-text" style={{ color: '#059669', fontWeight: 600 }}>
-                            File attached!
+                        <p className="am__file-zone-text am__file-zone-text--attached">
+                            File attached
                         </p>
                         <p className="am__file-name">{file.name}</p>
                     </>
@@ -96,7 +96,7 @@ function FileZone({ label, hint, accept, maxSizeMB, file, onChange }) {
                     </p>
                 )}
             </div>
-            <span className="am__file-hint">📋 {hint} · Max {maxSizeMB}MB · PDF accepted</span>
+            <span className="am__file-hint">{hint} · Max {maxSizeMB}MB · PDF accepted</span>
         </div>
     );
 }
@@ -188,11 +188,11 @@ export default function ApplicationModal({ role, onClose }) {
         e.preventDefault();
         setError('');
 
-        if (parseInt(mathAnswer) !== mathProblem.answer) { 
-            setError('Security Verification failed. Incorrect Math answer.'); 
+        if (parseInt(mathAnswer) !== mathProblem.answer) {
+            setError('Security Verification failed. Incorrect Math answer.');
             setMathProblem(generateMathProblem());
             setMathAnswer('');
-            return; 
+            return;
         }
         if (!termsAccepted) { setError('You must accept the terms & conditions to proceed.'); return; }
         if (!collegeProof) { setError('Please upload your college proof document.'); return; }
@@ -207,11 +207,11 @@ export default function ApplicationModal({ role, onClose }) {
             ]);
 
             // ── Step 3: Save to Supabase ──────────────────────
-            
+
             // Radically robust dynamic fee extraction:
             // 1. Check if there's a direct explicit property
             let extractedFee = role.fee || role.fees || role.price || role.amount;
-            
+
             // 2. Try parsing it via regex if it's explicitly typed in the free-text description
             if (!extractedFee && role.description) {
                 const feeMatch = role.description.match(/(?:fee|price|cost|amount).*?(?:rs\.?|inr|₹|$)?\s*(\d+(?:,\d+)*)/i);
@@ -227,7 +227,7 @@ export default function ApplicationModal({ role, onClose }) {
 
             // Fallback safety to 999
             const fees = extractedFee && !isNaN(extractedFee) && extractedFee > 0 ? Number(extractedFee) : 999;
-            
+
             const { data: insertedData, error: dbError } = await supabase.from('training_registrations').insert([{
                 user_id: user?.user_id || null,
                 position: role.title,
@@ -299,7 +299,7 @@ export default function ApplicationModal({ role, onClose }) {
                         .from('training_registrations')
                         .update({ payment_status: 'paid' })
                         .eq('registration_id', applicationId);
-                    
+
                     // Close the modal and redirect immediately
                     onClose();
                     navigate('/profile');
@@ -495,21 +495,27 @@ export default function ApplicationModal({ role, onClose }) {
                         </label>
                     </div>
 
-                    {/* Manual Math reCAPTCHA */}
-                    <div className="am__captcha" style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '24px' }}>
-                        <label style={{ fontSize: '0.9rem', fontWeight: 600, color: '#0f172a' }}>Security Verification *</label>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', background: '#f8fafc', padding: '12px 16px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
-                            <span style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#0ea5e9', minWidth: '70px', userSelect: 'none' }}>{mathProblem.text} = ?</span>
-                            <input 
-                                type="number" 
-                                required 
-                                placeholder="Answer" 
-                                value={mathAnswer} 
+                    {/* Manual Math Captcha */}
+                    <div className="am__captcha">
+                        <label>Security Verification *</label>
+                        <div className="am__captcha-box">
+                            <span className="am__captcha-problem">
+                                {mathProblem.text.split('').map((ch, i) =>
+                                    /[+\-]/.test(ch)
+                                        ? <span key={i}> {ch} </span>
+                                        : ch
+                                )} = ?
+                            </span>
+                            <input
+                                type="number"
+                                required
+                                placeholder="Answer"
+                                value={mathAnswer}
                                 onChange={(e) => setMathAnswer(e.target.value)}
-                                style={{ width: '100px', padding: '10px', borderRadius: '6px', border: '1px solid #cbd5e1', outline: 'none', fontSize: '1rem' }} 
+                                className="am__captcha-input"
                             />
                         </div>
-                        <span style={{ fontSize: '0.8rem', color: '#64748b' }}>Please solve the math problem to verify you are human.</span>
+                        <span className="am__captcha-hint">Solve the problem above to confirm you're human.</span>
                     </div>
 
                 </form>
@@ -541,3 +547,4 @@ export default function ApplicationModal({ role, onClose }) {
         </div>
     );
 }
+

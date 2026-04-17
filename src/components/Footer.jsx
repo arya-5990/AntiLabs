@@ -15,15 +15,26 @@ const Logo = () => (
 
 const links = {
     services: [
-        { name: 'Cybersecurity', id: 'cybersecurity' },
-        { name: 'Cloud & DevOps', id: 'cloud' },
-        { name: 'Custom Software', id: 'software' },
-        { name: 'IT Consulting', id: 'consulting' },
-        { name: 'Managed Services', id: 'managed' },
-        { name: 'Data Engineering', id: 'data' }
+        { name: 'Cybersecurity', href: '/services?tab=cybersecurity' },
+        { name: 'Cloud & DevOps', href: '/services?tab=cloud' },
+        { name: 'Custom Software', href: '/services?tab=software' },
+        { name: 'IT Consulting', href: '/services?tab=consulting' },
+        { name: 'Managed Services', href: '/services?tab=managed' },
+        { name: 'Data Engineering', href: '/services?tab=data' },
     ],
-    company: ['About Us', 'Team', 'Careers', 'Partners', 'Press', 'Legal'],
-    resources: ['Blog', 'Documentation', 'Case Studies', 'Whitepapers', 'API Reference', 'Status Page'],
+    company: [
+        { name: 'About Us', href: '/about' },
+        { name: 'Team', href: '/about#team' },
+        { name: 'Careers', href: '/careers' },
+        { name: 'Contact', href: '/contact' },
+        { name: 'Testimonials', href: '/testimonials' },
+    ],
+    legal: [
+        { name: 'Terms & Conditions', href: '/terms' },
+        { name: 'Privacy Policy', href: '/privacy' },
+        { name: 'Refund Policy', href: '/refund' },
+        { name: 'Employment Policy', href: '/employment' },
+    ],
 };
 
 const SocialIcon = ({ href, label, children }) => (
@@ -76,8 +87,8 @@ export default function Footer() {
                         <h4 className="footer__col-title">Services</h4>
                         <ul className="footer__links">
                             {links.services.map(s => (
-                                <li key={s.id}>
-                                    <Link to={`/services?tab=${s.id}`} className="footer__link">{s.name}</Link>
+                                <li key={s.href}>
+                                    <Link to={s.href} className="footer__link">{s.name}</Link>
                                 </li>
                             ))}
                         </ul>
@@ -88,18 +99,22 @@ export default function Footer() {
                         <h4 className="footer__col-title">Company</h4>
                         <ul className="footer__links">
                             {links.company.map(l => (
-                                <li key={l}>
-                                    <Link to="/about" className="footer__link">{l}</Link>
+                                <li key={l.href}>
+                                    <Link to={l.href} className="footer__link">{l.name}</Link>
                                 </li>
                             ))}
                         </ul>
                     </div>
 
-                    {/* Col 4 — Resources */}
+                    {/* Col 4 — Legal */}
                     <div className="footer__col">
-                        <h4 className="footer__col-title">Resources</h4>
+                        <h4 className="footer__col-title">Legal</h4>
                         <ul className="footer__links">
-                            {links.resources.map(l => <li key={l}><a href="#" className="footer__link">{l}</a></li>)}
+                            {links.legal.map(l => (
+                                <li key={l.href}>
+                                    <Link to={l.href} className="footer__link">{l.name}</Link>
+                                </li>
+                            ))}
                         </ul>
                     </div>
 
@@ -136,11 +151,13 @@ export default function Footer() {
                 <div className="container footer__bottom-inner">
                     <span className="footer__copy">© {year} AntiLabs Technologies Pvt. Ltd. All rights reserved.</span>
                     <div className="footer__bottom-links">
-                        <a href="#" className="footer__link footer__link--sm">Privacy Policy</a>
+                        <Link to="/privacy" className="footer__link footer__link--sm">Privacy Policy</Link>
                         <span className="footer__dot">·</span>
                         <Link to="/terms" className="footer__link footer__link--sm">Terms of Service</Link>
                         <span className="footer__dot">·</span>
-                        <a href="#" className="footer__link footer__link--sm">Cookie Policy</a>
+                        <Link to="/refund" className="footer__link footer__link--sm">Refund Policy</Link>
+                        <span className="footer__dot">·</span>
+                        <Link to="/employment" className="footer__link footer__link--sm">Employment Policy</Link>
                     </div>
                     <button className="footer__back-top" onClick={scrollTop} aria-label="Back to top">
                         Back to top ↑

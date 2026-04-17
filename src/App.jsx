@@ -67,6 +67,9 @@ export default function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/testimonials" element={<TestimonialsPage />} />
         <Route path="/terms" element={<TermsPage />} />
+        <Route path="/privacy" element={<TermsPage />} />
+        <Route path="/refund" element={<TermsPage />} />
+        <Route path="/employment" element={<TermsPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/profile" element={<ProfilePage />} />

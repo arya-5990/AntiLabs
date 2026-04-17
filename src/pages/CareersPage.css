@@ -259,19 +259,25 @@
 }
 
 .cp__role-compensation {
-    background: linear-gradient(135deg, rgba(0, 200, 160, 0.1) 0%, rgba(0, 200, 160, 0.15) 100%);
-    color: #009677;
-    /* Deeper high-contrast green */
-    padding: 6px 16px;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 14.5px;
-    border: 1px solid rgba(0, 200, 160, 0.25);
-    box-shadow: 0 4px 12px rgba(0, 200, 160, 0.08);
-    white-space: nowrap;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--primary);
+    white-space: nowrap;
+    letter-spacing: -0.01em;
+    font-family: var(--font-heading);
+}
+
+.cp__role-compensation::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 18px;
+    border-radius: 3px;
+    background: var(--accent);
+    flex-shrink: 0;
 }
 
 .cp__role-chevron {
