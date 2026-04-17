@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { supabase } from '../supabase';
+import { useAuth } from '../context/AuthContext';
 import ApplicationModal from '../components/ApplicationModal';
 import './CareersPage.css';
 
@@ -153,6 +154,16 @@ export default function CareersPage() {
     const [openRoles, setOpenRoles] = useState([]);
     const [loading, setLoading] = useState(true);
     const [applyingRole, setApplyingRole] = useState(null);
+    const { user } = useAuth();
+    const navigate = useNavigate();
+
+    const handleApplyClick = (role) => {
+        if (!user) {
+            navigate('/login');
+        } else {
+            setApplyingRole(role);
+        }
+    };
 
     useEffect(() => {
         async function fetchRoles() {
@@ -246,7 +257,7 @@ export default function CareersPage() {
                                 <p style={{ textAlign: 'center', padding: '2rem' }}>No open positions at the moment, but feel free to send a general application!</p>
                             ) : (
                                 openRoles.map(role => (
-                                    <RoleCard key={role.posting_id} role={role} onApply={setApplyingRole} />
+                                    <RoleCard key={role.posting_id} role={role} onApply={handleApplyClick} />
                                 ))
                             )}
                         </div>

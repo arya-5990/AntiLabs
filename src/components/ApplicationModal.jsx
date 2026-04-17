@@ -1,5 +1,5 @@
 ﻿import React, { useState, useEffect, useRef } from 'react';
-import { load } from '@cashfreepayments/cashfree-js';
+
 import { supabase } from '../supabase';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -255,9 +255,9 @@ export default function ApplicationModal({ role, onClose }) {
 
             const applicationId = insertedData?.[0]?.registration_id;
 
-            // ── Step 4: Initialize Cashfree Payment ───────────
+            // ── Step 4: Initialize Instamojo Payment ───────────
             const orderRes = await fetch(
-                `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-cashfree-order`,
+                `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-instamojo-order`,
                 {
                     method: 'POST',
                     headers: {
@@ -271,40 +271,18 @@ export default function ApplicationModal({ role, onClose }) {
                         customer_phone: formData.mobile_number,
                         customer_name: formData.full_name,
                         amount: fees, // Dynamic price synced with database record
+                        return_url: `${window.location.origin}/profile?reg_id=${applicationId}`
                     }),
                 }
             );
 
             const orderData = await orderRes.json();
-            if (!orderData.payment_session_id) {
+            if (!orderData.longurl) {
                 throw new Error(orderData.error || 'Failed to initialize payment gateway.');
             }
 
-            const cashfree = await load({
-                mode: "sandbox", // use "production" for live
-            });
-
-            const checkoutOptions = {
-                paymentSessionId: orderData.payment_session_id,
-                redirectTarget: "_modal"
-            };
-
-            cashfree.checkout(checkoutOptions).then(async (result) => {
-                if (result.error) {
-                    setError(result.error.message || 'Payment window closed or cancelled.');
-                }
-                if (result.paymentDetails) {
-                    // Update the status on our DB natively
-                    await supabase
-                        .from('training_registrations')
-                        .update({ payment_status: 'paid' })
-                        .eq('registration_id', applicationId);
-
-                    // Close the modal and redirect immediately
-                    onClose();
-                    navigate('/profile');
-                }
-            });
+            // Redirect directly to Instamojo payment link
+            window.location.href = orderData.longurl;
 
         } catch (err) {
             console.error('Submission error:', err);

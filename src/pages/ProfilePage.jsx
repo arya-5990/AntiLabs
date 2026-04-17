@@ -26,6 +26,34 @@ export default function ProfilePage() {
         age: ''
     });
 
+    // Payment confirmation from Instamojo
+    useEffect(() => {
+        const checkPayment = async () => {
+            const queryParams = new URLSearchParams(window.location.search);
+            const regId = queryParams.get('reg_id');
+            const paymentStatus = queryParams.get('payment_status');
+
+            if (regId && paymentStatus) {
+                if (paymentStatus === 'Credit') {
+                    try {
+                        await supabase
+                            .from('training_registrations')
+                            .update({ payment_status: 'paid' })
+                            .eq('registration_id', regId);
+                        setSuccessMsg('Payment Successful! Registration confirmed.');
+                    } catch (err) {
+                        console.error('Failed to confirm payment status', err);
+                    }
+                } else {
+                    setErrorMsg('Payment Failed or Cancelled. Please try again.');
+                }
+                // Clean up URL to prevent re-triggering
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        };
+        checkPayment();
+    }, []);
+
     // Populate form data once user is available
     useEffect(() => {
         if (user) {
@@ -45,7 +73,7 @@ export default function ProfilePage() {
                         .select('*')
                         .eq('user_id', user.user_id)
                         .eq('payment_status', 'paid');
-                    
+
                     if (!error && data) {
                         setTrainings(data);
                     }
