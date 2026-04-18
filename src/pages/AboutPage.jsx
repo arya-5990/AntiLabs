@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import Team from '../components/Team';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import './AboutPage.css';
 
@@ -198,9 +197,6 @@ export default function AboutPage() {
                         </div>
                     </div>
                 </section>
-
-                {/* ── Team ── (reuse existing component) */}
-                <Team />
 
                 {/* ── CTA ── */}
                 <section className="ap__cta-strip">

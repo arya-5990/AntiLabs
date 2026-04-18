@@ -10,7 +10,6 @@ import Services from './components/Services';
 import WhyUs from './components/WhyUs';
 import Process from './components/Process';
 import Testimonials from './components/Testimonials';
-import Team from './components/Team';
 import CTABanner from './components/CTABanner';
 import Footer from './components/Footer';
 import ServicesPage from './pages/ServicesPage';
@@ -47,7 +46,6 @@ function HomePage() {
         <WhyUs />
         <Process />
         <Testimonials />
-        <Team />
         <CTABanner />
       </main>
       <Footer />
