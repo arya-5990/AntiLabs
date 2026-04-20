@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import { supabase } from '../supabase';
 import { useAuth } from '../context/AuthContext';
@@ -469,7 +469,7 @@ export default function ApplicationModal({ role, onClose }) {
                             I have read and agree to the{' '}
                             <a href="/terms" target="_blank" rel="noreferrer">Terms & Conditions</a>,{' '}
                             <a href="/privacy" target="_blank" rel="noreferrer">Privacy Policy</a>, and{' '}
-                            Refund Policy of AntiLabs.
+                            <a href="/refund" target="_blank" rel="noreferrer">Refund Policy</a> of AntiLabs.
                         </label>
                     </div>
 
