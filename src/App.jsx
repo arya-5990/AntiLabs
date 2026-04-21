@@ -21,6 +21,7 @@ import TermsPage from './pages/TermsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
+import StudentDashboard from './pages/StudentDashboard';
 import './App.css';
 
 function HomePage() {
@@ -71,6 +72,7 @@ export default function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/student-dashboard" element={<StudentDashboard />} />
       </Routes>
     </>
   );

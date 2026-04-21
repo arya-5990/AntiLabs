@@ -58,12 +58,19 @@ export default function Footer() {
                             AntiLabs is a premium IT services firm specializing in enterprise cybersecurity, cloud architecture, and custom software development.
                         </p>
                         <div className="footer__socials">
-                            <SocialIcon href="#" label="LinkedIn">
+                            <SocialIcon href="https://www.linkedin.com/company/antilabs/" label="LinkedIn">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 6a2 2 0 100-4 2 2 0 000 4z" />
                                 </svg>
                             </SocialIcon>
-                            <SocialIcon href="#" label="Twitter/X">
+                            <SocialIcon href="https://www.instagram.com/antilabs.in?igsh=bzJtaHNlbzQwcW94" label="Instagram">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                </svg>
+                            </SocialIcon>
+                            {/* <SocialIcon href="#" label="Twitter/X">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                                 </svg>
@@ -78,7 +85,7 @@ export default function Footer() {
                                     <path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z" />
                                     <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#111827" />
                                 </svg>
-                            </SocialIcon>
+                            </SocialIcon> */}
                         </div>
                     </div>
 
