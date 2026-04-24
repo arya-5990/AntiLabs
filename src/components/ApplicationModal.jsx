@@ -255,9 +255,11 @@ export default function ApplicationModal({ role, onClose }) {
 
             const applicationId = insertedData?.[0]?.registration_id;
 
-            // ── Step 4: Initialize Instamojo Payment ───────────
+            // ── Step 4: Initialize Cashfree Payment ───────────
+            const isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            
             const orderRes = await fetch(
-                `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-instamojo-order`,
+                `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-cashfree-order`,
                 {
                     method: 'POST',
                     headers: {
@@ -271,18 +273,38 @@ export default function ApplicationModal({ role, onClose }) {
                         customer_phone: formData.mobile_number,
                         customer_name: formData.full_name,
                         amount: fees, // Dynamic price synced with database record
-                        return_url: `${window.location.origin}/profile?reg_id=${applicationId}`
+                        return_url: `${window.location.origin}/profile?reg_id=${applicationId}`,
+                        is_dev: isDev
                     }),
                 }
             );
 
             const orderData = await orderRes.json();
-            if (!orderData.longurl) {
+            if (!orderData.payment_session_id) {
                 throw new Error(orderData.error || 'Failed to initialize payment gateway.');
             }
 
-            // Redirect directly to Instamojo payment link
-            window.location.href = orderData.longurl;
+            // Dynamically load Cashfree JS SDK and open checkout
+            const loadCashfree = () => {
+                return new Promise((resolve) => {
+                    if (window.Cashfree) {
+                        resolve(window.Cashfree);
+                        return;
+                    }
+                    const script = document.createElement('script');
+                    script.src = 'https://sdk.cashfree.com/js/v3/cashfree.js';
+                    script.onload = () => resolve(window.Cashfree);
+                    document.body.appendChild(script);
+                });
+            };
+
+            const Cashfree = await loadCashfree();
+            const cashfree = Cashfree({ mode: isDev ? 'sandbox' : 'production' });
+            
+            cashfree.checkout({
+                paymentSessionId: orderData.payment_session_id,
+                redirectTarget: "_self"
+            });
 
         } catch (err) {
             console.error('Submission error:', err);
