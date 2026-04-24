@@ -433,6 +433,7 @@ export default function ApplicationModal({ role, onClose }) {
                                 <span className="am__input-icon">{Icon.cap}</span>
                             </div>
                         </div>
+                        
                         <div className="am__input-group">
                             <label>Branch *</label>
                             <div className="am__input-wrap">
