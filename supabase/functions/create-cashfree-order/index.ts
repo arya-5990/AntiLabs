@@ -11,7 +11,8 @@ serve(async (req) => {
   }
 
   try {
-    const { application_id, customer_email, customer_phone, customer_name, amount, return_url, is_dev } = await req.json();
+    const body = await req.json();
+    const { action, order_id, application_id, customer_email, customer_phone, customer_name, amount, return_url, is_dev } = body;
 
     const appId = is_dev 
       ? Deno.env.get("CASHFREE_TEST_APP_ID")
@@ -23,6 +24,28 @@ serve(async (req) => {
 
     if (!appId || !secretKey) {
         throw new Error(`Cashfree ${is_dev ? 'test' : 'production'} credentials are not configured in environment variables.`);
+    }
+
+    if (action === 'verify') {
+      const verifyEndpoint = is_dev 
+        ? `https://sandbox.cashfree.com/pg/orders/${order_id}`
+        : `https://api.cashfree.com/pg/orders/${order_id}`;
+        
+      const verifyRes = await fetch(verifyEndpoint, {
+        method: "GET",
+        headers: {
+          "x-client-id": appId,
+          "x-client-secret": secretKey,
+          "x-api-version": "2023-08-01",
+          "Content-Type": "application/json"
+        }
+      });
+      
+      const orderData = await verifyRes.json();
+      return new Response(JSON.stringify(orderData), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 200,
+      });
     }
 
     const endpoint = is_dev 

@@ -26,26 +26,40 @@ export default function ProfilePage() {
         age: ''
     });
 
-    // Payment confirmation from Instamojo
+    // Payment confirmation from Cashfree
     useEffect(() => {
         const checkPayment = async () => {
             const queryParams = new URLSearchParams(window.location.search);
             const regId = queryParams.get('reg_id');
-            const paymentStatus = queryParams.get('payment_status');
+            const orderId = queryParams.get('order_id');
 
-            if (regId && paymentStatus) {
-                if (paymentStatus === 'Credit') {
-                    try {
+            if (regId && orderId) {
+                const isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+                try {
+                    const verifyRes = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-cashfree-order`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+                            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+                        },
+                        body: JSON.stringify({ action: 'verify', order_id: orderId, is_dev: isDev })
+                    });
+                    
+                    const orderData = await verifyRes.json();
+                    
+                    if (orderData.order_status === 'PAID') {
                         await supabase
                             .from('training_registrations')
                             .update({ payment_status: 'paid' })
                             .eq('registration_id', regId);
                         setSuccessMsg('Payment Successful! Registration confirmed.');
-                    } catch (err) {
-                        console.error('Failed to confirm payment status', err);
+                    } else {
+                        setErrorMsg(`Payment was not completed. Status: ${orderData.order_status || 'UNKNOWN'}`);
                     }
-                } else {
-                    setErrorMsg('Payment Failed or Cancelled. Please try again.');
+                } catch (err) {
+                    console.error('Failed to verify payment status', err);
+                    setErrorMsg('An error occurred while verifying your payment.');
                 }
                 // Clean up URL to prevent re-triggering
                 window.history.replaceState({}, document.title, window.location.pathname);
