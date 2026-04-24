@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import SEO from '../components/SEO';
 import './ServicesPage.css';
 
 /* ─── Data ─────────────────────────────────────────────── */
@@ -247,6 +248,7 @@ export default function ServicesPage() {
 
     return (
         <>
+            <SEO title="Services" description="Explore our enterprise-grade IT services including Cybersecurity, Cloud Infrastructure, and Custom Software Development." canonicalUrl="/services" />
             <Navbar />
             <main className="sp">
 

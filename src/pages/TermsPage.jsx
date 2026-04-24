@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
 import './TermsPage.css';
 
 /* ── Policy data ─────────────────────────────────────────── */
@@ -460,6 +461,7 @@ export default function TermsPage() {
 
     return (
         <>
+            <SEO title="Legal Policies" description="AntiLabs Terms & Conditions, Privacy Policy, Refund Policy, and Employment Policies." canonicalUrl="/terms" />
             <Navbar />
             <main className="tp" ref={mainRef}>
 

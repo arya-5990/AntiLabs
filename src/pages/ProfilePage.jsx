@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../supabase';
+import SEO from '../components/SEO';
 import './Auth.css';
 
 export default function ProfilePage() {
@@ -103,7 +104,8 @@ export default function ProfilePage() {
 
     if (!user) {
         return (
-            <div className="auth-page">
+            <div className="profile-page">
+                <SEO title="Your Profile" description="Manage your AntiLabs profile." canonicalUrl="/profile" />
                 <Navbar />
                 <main className="auth-container" style={{ textAlign: 'center' }}>
                     <div className="auth-card">

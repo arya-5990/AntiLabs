@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { supabase } from '../supabase';
 import './ContactPage.css';
@@ -63,6 +64,7 @@ export default function ContactPage() {
 
     return (
         <>
+            <SEO title="Contact Us" description="Get in touch with AntiLabs to discuss your project, request a consultation, or explore our services." canonicalUrl="/contact" />
             <Navbar />
             <main className="cp">
                 {/* ── Hero ── */}

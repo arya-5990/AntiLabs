@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import SEO from '../components/SEO';
 import { supabase } from '../supabase';
 import { useAuth } from '../context/AuthContext';
 import ApplicationModal from '../components/ApplicationModal';
@@ -192,6 +193,7 @@ export default function CareersPage() {
 
     return (
         <>
+            <SEO title="Careers" description="Join AntiLabs and build digital infrastructure that enterprises trust." canonicalUrl="/careers" />
             <Navbar />
             <main className="cp">
 

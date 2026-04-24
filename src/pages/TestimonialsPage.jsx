@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Testimonials from '../components/Testimonials';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import SEO from '../components/SEO';
 import './TestimonialsPage.css';
 
 export default function TestimonialsPage() {
@@ -10,6 +11,7 @@ export default function TestimonialsPage() {
 
     return (
         <>
+            <SEO title="Testimonials" description="Read what world-class enterprises have to say about partnering with AntiLabs." canonicalUrl="/testimonials" />
             <Navbar />
             <main className="tp">
                 <section className="tp__hero">

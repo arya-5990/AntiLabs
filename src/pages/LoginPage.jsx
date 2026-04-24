@@ -4,6 +4,7 @@ import { supabase } from '../supabase';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
+import SEO from '../components/SEO';
 import './Auth.css';
 
 export default function LoginPage() {
@@ -55,6 +56,7 @@ export default function LoginPage() {
 
     return (
         <div className="auth-page">
+            <SEO title="Sign In" description="Sign in to your AntiLabs account." canonicalUrl="/login" />
             <Navbar />
             <main className="auth-container">
                 <div className="auth-card">

@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../supabase';
+import SEO from '../components/SEO';
 import './StudentDashboard.css';
 
 export default function StudentDashboard() {
@@ -222,7 +223,8 @@ export default function StudentDashboard() {
   if (!user) return null;
 
   return (
-    <div className="student-dashboard-page">
+    <div className="sd-page">
+      <SEO title="Student Dashboard" description="Access your AntiLabs student dashboard." canonicalUrl="/student-dashboard" />
       <Navbar />
       
       <main className="dashboard-main">

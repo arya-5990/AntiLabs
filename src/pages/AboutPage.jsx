@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import SEO from '../components/SEO';
 import './AboutPage.css';
 
 /* ── Values ─────────────────────────────────── */
@@ -92,6 +93,11 @@ export default function AboutPage() {
 
     return (
         <>
+            <SEO 
+                title="About Us" 
+                description="Learn about AntiLabs, a premium IT services firm founded by engineers who build digital infrastructure that enterprises trust."
+                canonicalUrl="/about"
+            />
             <Navbar />
             <main className="ap">
 

@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../supabase';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
 import './Auth.css';
 
 export default function RegisterPage() {
@@ -68,6 +69,7 @@ export default function RegisterPage() {
 
     return (
         <div className="auth-page">
+            <SEO title="Register" description="Create an AntiLabs account." canonicalUrl="/register" />
             <Navbar />
             <main className="auth-container">
                 <div className="auth-card auth-card--register">

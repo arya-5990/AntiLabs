@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import SEO from './components/SEO';
 import ScrollToTop from './components/ScrollToTop';
 import VideoIntro from './components/VideoIntro';
 import Navbar from './components/Navbar';
@@ -37,6 +38,11 @@ function HomePage() {
 
   return (
     <>
+      <SEO 
+        title="Home"
+        description="AntiLabs delivers enterprise-grade cybersecurity, cloud architecture, and custom software — built to scale with your ambitions."
+        canonicalUrl="/"
+      />
       {!introDone && <VideoIntro onDone={handleIntroDone} />}
       <Navbar />
       <main>
