@@ -54,8 +54,8 @@ export default function Hero() {
                     <div ref={step1.ref} className={`hero__reveal ${step1.visible ? 'hero__reveal--in' : ''}`}>
                         <span className="section-eyebrow hero__eyebrow">Next-Gen IT Solutions</span>
                         <h1 className="hero__h1">
-                            Engineering the Digital<br />
-                            <span className="hero__h1--accent">Infrastructure of Tomorrow.</span>
+                            AntiLabs - Building the Future<br />
+                            <span className="hero__h1--accent">with Technology</span>
                         </h1>
                     </div>
 

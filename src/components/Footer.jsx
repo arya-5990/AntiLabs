@@ -55,7 +55,7 @@ export default function Footer() {
                         <Logo />
                         <p className="footer__tagline">Engineering the digital infrastructure of tomorrow, today.</p>
                         <p className="footer__brand-desc">
-                            AntiLabs is a premium IT services firm specializing in enterprise cybersecurity, cloud architecture, and custom software development.
+                            <Link to="/" style={{color: 'inherit', fontWeight: 'bold'}}>AntiLabs</Link> is a premium IT services firm specializing in enterprise cybersecurity, cloud architecture, and custom <Link to="/services?tab=software" style={{color: 'inherit', textDecoration: 'underline'}}>AntiLabs Web Development</Link>. Explore our comprehensive <Link to="/services" style={{color: 'inherit', textDecoration: 'underline'}}>AntiLabs Services</Link> designed to scale with your ambitions.
                         </p>
                         <div className="footer__socials">
                             <SocialIcon href="https://www.linkedin.com/company/antilabs/" label="LinkedIn">

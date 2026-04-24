@@ -39,8 +39,7 @@ function HomePage() {
   return (
     <>
       <SEO 
-        title="Home"
-        description="AntiLabs delivers enterprise-grade cybersecurity, cloud architecture, and custom software — built to scale with your ambitions."
+        isHome={true}
         canonicalUrl="/"
       />
       {!introDone && <VideoIntro onDone={handleIntroDone} />}

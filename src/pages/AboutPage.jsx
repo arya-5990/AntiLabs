@@ -91,12 +91,18 @@ function RevealSection({ children, className = '' }) {
 export default function AboutPage() {
     const hero = useScrollReveal({ threshold: 0.01 });
 
+    const breadcrumbs = [
+        { name: "Home", url: "/" },
+        { name: "About AntiLabs", url: "/about" }
+    ];
+
     return (
         <>
             <SEO 
-                title="About Us" 
-                description="Learn about AntiLabs, a premium IT services firm founded by engineers who build digital infrastructure that enterprises trust."
+                title="About AntiLabs" 
+                description="Learn about AntiLabs, a leading technology company specializing in web development, AI solutions, and software engineering. AntiLabs builds digital infrastructure that enterprises trust."
                 canonicalUrl="/about"
+                breadcrumbs={breadcrumbs}
             />
             <Navbar />
             <main className="ap">
