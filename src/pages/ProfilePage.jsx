@@ -31,10 +31,12 @@ export default function ProfilePage() {
     useEffect(() => {
         const checkPayment = async () => {
             const queryParams = new URLSearchParams(window.location.search);
-            const regId = queryParams.get('reg_id');
+            // Check for tx_id instead of reg_id (new architecture)
+            // Fallback to reg_id just in case of any cached redirects
+            const txId = queryParams.get('tx_id') || queryParams.get('reg_id');
             const orderId = queryParams.get('order_id');
 
-            if (regId && orderId) {
+            if (txId && orderId) {
                 const isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
                 try {
                     const verifyRes = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-cashfree-order`, {
@@ -50,20 +52,61 @@ export default function ProfilePage() {
                     const orderData = await verifyRes.json();
                     
                     if (orderData.order_status === 'PAID') {
-                        await supabase
-                            .from('training_registrations')
-                            .update({ payment_status: 'paid' })
-                            .eq('registration_id', regId);
+                        // 1. Fetch transaction details to check its current status
+                        const { data: txData, error: txError } = await supabase
+                            .from('transactions')
+                            .select('*')
+                            .eq('transaction_id', txId)
+                            .single();
+
+                        if (txData && !txError) {
+                            // If already processed (e.g. by React StrictMode double-fire), skip to reload
+                            if (txData.payment_status === 'paid') {
+                                window.location.href = window.location.pathname;
+                                return;
+                            }
+
+                            // 2. Update transactions table
+                            await supabase
+                                .from('transactions')
+                                .update({ payment_status: 'paid' })
+                                .eq('transaction_id', txId);
+
+                            // 3. Ensure no duplicate in training_registrations
+                            const { data: existingReg } = await supabase
+                                .from('training_registrations')
+                                .select('registration_id')
+                                .eq('email', txData.email)
+                                .eq('role_id', txData.role_id)
+                                .maybeSingle();
+
+                            if (!existingReg) {
+                                // 4. Insert into training_registrations
+                                const { transaction_id, ...txDataWithoutId } = txData;
+                                txDataWithoutId.payment_status = 'paid'; // force it to paid
+                                await supabase
+                                    .from('training_registrations')
+                                    .insert([txDataWithoutId]);
+                            }
+                        }
+
                         setSuccessMsg('Payment Successful! Registration confirmed.');
                     } else {
+                        // Mark transaction as failed or cancelled
+                        const status = orderData.order_status === 'ACTIVE' ? 'pending' : 'failed';
+                        await supabase
+                            .from('transactions')
+                            .update({ payment_status: status })
+                            .eq('transaction_id', txId);
+                            
                         setErrorMsg(`Payment was not completed. Status: ${orderData.order_status || 'UNKNOWN'}`);
                     }
                 } catch (err) {
                     console.error('Failed to verify payment status', err);
                     setErrorMsg('An error occurred while verifying your payment.');
                 }
-                // Clean up URL to prevent re-triggering
-                window.history.replaceState({}, document.title, window.location.pathname);
+                // Clean up URL and auto-refresh the page once to fetch the latest data
+                window.location.href = window.location.pathname;
             }
         };
         checkPayment();

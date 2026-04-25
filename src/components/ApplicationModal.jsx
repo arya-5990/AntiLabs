@@ -101,6 +101,389 @@ function FileZone({ label, hint, accept, maxSizeMB, file, onChange }) {
     );
 }
 
+/* ─── Suggestion data ─────────────────────────────────────── */
+const UNIVERSITY_SUGGESTIONS = [
+    "Devi Ahilya Vishwavidyalaya (DAVV)",
+    "Anna University",
+    "Mumbai University",
+    "University of Delhi",
+    "Jawaharlal Nehru University (JNU)",
+    "Osmania University",
+    "Bangalore University",
+    "Madras University",
+    "Calcutta University",
+    "Pune University (SPPU)",
+    "Gujarat University",
+    "Rajasthan University",
+    "Lucknow University",
+    "Allahabad University",
+    "Banaras Hindu University (BHU)",
+    "Aligarh Muslim University (AMU)",
+    "Jamia Millia Islamia",
+    "Hyderabad University",
+    "Pondicherry University",
+    "Manipal Academy of Higher Education",
+    "Amity University",
+    "SRM Institute of Science and Technology",
+    "VIT University",
+    "Lovely Professional University (LPU)",
+    "Chandigarh University",
+    "KIIT University",
+    "Thapar Institute of Engineering and Technology",
+    "Symbiosis International University",
+    "Christ University",
+    "Jain University",
+    "Visvesvaraya Technological University (VTU)",
+    "Rajiv Gandhi Proudyogiki Vishwavidyalaya (RGPV)",
+    "Mahatma Gandhi University",
+    "Kerala University",
+    "Calicut University",
+    "Cochin University of Science and Technology (CUSAT)",
+    "APJ Abdul Kalam Technological University (KTU)",
+    "Tamil Nadu Dr Ambedkar Law University",
+    "Bharathiar University",
+    "Alagappa University",
+    "Annamalai University",
+    "Periyar University",
+    "Andhra University",
+    "JNTU Hyderabad",
+    "JNTU Kakinada",
+    "JNTU Anantapur",
+    "Osmania University",
+    "Sri Venkateswara University",
+    "Nagarjuna University",
+    "Mysore University",
+    "Tumkur University",
+    "Kuvempu University",
+    "Mangalore University",
+    "Gulbarga University",
+    "Shivaji University",
+    "North Maharashtra University",
+    "RTM Nagpur University",
+    "SRTM University Nanded",
+    "Solapur University",
+    "Swami Ramanand Teerth Marathwada University",
+    "Dr. Babasaheb Ambedkar Marathwada University",
+    "Chhatrapati Shahu Ji Maharaj University (CSJMU)",
+    "Dr. Ram Manohar Lohia Avadh University",
+    "MG Kashi Vidyapith",
+    "Deen Dayal Upadhyaya Gorakhpur University",
+    "Panjab University",
+    "Kurukshetra University",
+    "Maharshi Dayanand University (MDU)",
+    "Guru Gobind Singh Indraprastha University (GGSIPU)",
+    "Himachal Pradesh University",
+    "Himachal Pradesh Technical University (HPTU)",
+    "Uttarakhand Technical University (UTU)",
+    "Hemwati Nandan Bahuguna Garhwal University",
+    "Gauhati University",
+    "Dibrugarh University",
+    "Tezpur University",
+    "Utkal University",
+    "Berhampur University",
+    "Sambalpur University",
+    "Veer Surendra Sai University of Technology (VSSUT)",
+    "Ranchi University",
+    "Vinoba Bhave University",
+    "Nilamber Pitamber University",
+    "Patna University",
+    "Magadh University",
+    "Tilka Manjhi Bhagalpur University"
+];
+
+const COLLEGE_SUGGESTIONS = [
+    "IIT Bombay",
+    "IIT Delhi",
+    "IIT Madras",
+    "IIT Kanpur",
+    "IIT Kharagpur",
+    "IIT Roorkee",
+    "IIT Guwahati",
+    "IIT Hyderabad",
+    "IIT Indore",
+    "IIT Bhopal (MANIT)",
+    "NIT Trichy",
+    "NIT Warangal",
+    "NIT Surathkal",
+    "NIT Calicut",
+    "NIT Rourkela",
+    "NIT Jaipur",
+    "NIT Allahabad",
+    "NIT Nagpur (VNIT)",
+    "NIT Bhopal (MANIT)",
+    "NIT Patna",
+    "BITS Pilani",
+    "BITS Goa",
+    "BITS Hyderabad",
+    "IIPS Indore",
+    "IIIT Hyderabad",
+    "IIIT Bangalore",
+    "IIIT Allahabad",
+    "IIIT Delhi",
+    "IIIT Gwalior",
+    "IIIT Pune",
+    "Delhi Technological University (DTU)",
+    "Netaji Subhas University of Technology (NSUT)",
+    "Jadavpur University",
+    "Presidency University Kolkata",
+    "St. Xavier's College Kolkata",
+    "St. Stephen's College Delhi",
+    "Miranda House Delhi",
+    "Lady Shri Ram College Delhi",
+    "Hansraj College Delhi",
+    "Ramjas College Delhi",
+    "Kirori Mal College Delhi",
+    "Hindu College Delhi",
+    "SRCC Delhi",
+    "IIM Ahmedabad",
+    "IIM Bangalore",
+    "IIM Calcutta",
+    "IIM Lucknow",
+    "IIM Indore",
+    "XLRI Jamshedpur",
+    "SP Jain Institute of Management",
+    "NMIMS Mumbai",
+    "Symbiosis Institute of Technology",
+    "Thapar University",
+    "VIT Vellore",
+    "SRM Chennai",
+    "Manipal Institute of Technology",
+    "Amrita School of Engineering",
+    "PSG College of Technology",
+    "CEG Anna University",
+    "KCE Coimbatore",
+    "Coimbatore Institute of Technology (CIT)",
+    "Kongu Engineering College",
+    "Sri Sivasubramaniya Nadar College of Engineering",
+    "REC Thiruchirappalli",
+    "Sardar Patel College of Engineering",
+    "Veermata Jijabai Technological Institute (VJTI)",
+    "College of Engineering Pune (COEP)",
+    "PICT Pune",
+    "MIT Pune",
+    "Pune Institute of Computer Technology (PICT)",
+    "Cummins College of Engineering Pune",
+    "DKTE Ichalkaranji",
+    "SGSITS Indore",
+    "IET DAVV Indore",
+    "Acropolis Institute Indore",
+    "Medicaps University",
+    "Oriental Institute of Science and Technology Bhopal",
+    "Lakshmi Narain College of Technology",
+    "Truba Institute",
+    "Jabalpur Engineering College",
+    "Maulana Azad National Institute of Technology (MANIT)",
+    "Model Institute of Engineering Jammu",
+    "SSCET Bhilai",
+    "GEC Raipur",
+    "CSVTU Bhilai",
+    "Chandigarh College of Engineering (CCET)",
+    "PEC University of Technology",
+    "Thapar Institute of Engineering",
+    "Lovely Professional University",
+    "Guru Nanak Dev Engineering College",
+    "MCE Hassan",
+    "BMS College of Engineering",
+    "RV College of Engineering",
+    "PESIT Bangalore",
+    "Dayananda Sagar College",
+    "JSS Academy of Technical Education",
+    "MSRIT Bangalore",
+    "SJCE Mysore",
+    "NIE Mysore",
+    "Ramaiah Institute of Technology"
+];
+
+const DEGREE_SUGGESTIONS = [
+    "B.Tech",
+    "B.E.",
+    "B.Sc",
+    "B.Sc (CS)",
+    "B.Sc (IT)",
+    "B.Sc (Math)",
+    "B.Sc (Electronics)",
+    "B.Com",
+    "B.Com (Hons)",
+    "B.A",
+    "B.A (Hons)",
+    "B.B.A",
+    "B.C.A",
+    "B.Arch",
+    "B.Des",
+    "B.Pharm",
+    "B.Ed",
+    "MBBS",
+    "B.D.S",
+    "M.Tech",
+    "M.E.",
+    "M.Sc",
+    "M.Sc (CS)",
+    "M.Sc (IT)",
+    "M.Sc (Data Science)",
+    "M.Sc (AI)",
+    "M.Com",
+    "M.A",
+    "M.B.A",
+    "M.C.A",
+    "M.Arch",
+    "M.Des",
+    "M.Pharm",
+    "M.Ed",
+    "Ph.D",
+    "Diploma (Engineering)",
+    "Polytechnic Diploma",
+    "Integrated B.Tech + M.Tech",
+    "Integrated M.Sc",
+    "LL.B",
+    "LL.M"
+];
+
+const BRANCH_SUGGESTIONS = [
+    "Computer Science Engineering (CSE)",
+    "Information Technology (IT)",
+    "Electronics & Communication Engineering (ECE)",
+    "Electrical Engineering (EE)",
+    "Electrical & Electronics Engineering (EEE)",
+    "Mechanical Engineering (ME)",
+    "Civil Engineering (CE)",
+    "Chemical Engineering (ChE)",
+    "Aerospace Engineering",
+    "Aeronautical Engineering",
+    "Automobile Engineering",
+    "Biotechnology",
+    "Biomedical Engineering",
+    "Environmental Engineering",
+    "Industrial Engineering",
+    "Mining Engineering",
+    "Metallurgical Engineering",
+    "Petroleum Engineering",
+    "Production Engineering",
+    "Textile Engineering",
+    "Agricultural Engineering",
+    "Marine Engineering",
+    "Instrumentation Engineering",
+    "Computer Science & IT (CSIT)",
+    "CSE (Artificial Intelligence)",
+    "CSE (Machine Learning)",
+    "CSE (Data Science)",
+    "CSE (Cybersecurity)",
+    "CSE (IoT)",
+    "CSE (Cloud Computing)",
+    "Software Engineering",
+    "Mathematics & Computing",
+    "Engineering Physics",
+    "Computer Applications (BCA/MCA)",
+    "Data Science",
+    "Artificial Intelligence & Machine Learning (AIML)",
+    "Robotics & Automation",
+    "Electronics & Instrumentation (EI)",
+    "Power Systems Engineering",
+    "VLSI Design",
+    "Embedded Systems",
+    "Structural Engineering",
+    "Transportation Engineering",
+    "Geotechnical Engineering",
+    "Thermal Engineering",
+    "Design Engineering",
+    "Commerce",
+    "Economics",
+    "Arts (Humanities)",
+    "Physics",
+    "Chemistry",
+    "Mathematics",
+    "Statistics",
+    "Microbiology",
+    "Biochemistry",
+    "Pharmacy",
+    "Architecture"
+];
+
+/* ─── AutocompleteInput component ─────────────────────────── */
+function AutocompleteInput({ name, value, onChange, placeholder, required, suggestions, icon }) {
+    const [open, setOpen] = useState(false);
+    const [filtered, setFiltered] = useState([]);
+    const [activeIdx, setActiveIdx] = useState(-1);
+    const wrapRef = useRef(null);
+
+    const handleInput = (e) => {
+        onChange(e);
+        const q = e.target.value.trim();
+        if (q.length < 2) { setOpen(false); return; }
+        const matches = suggestions
+            .filter(s => s.toLowerCase().includes(q.toLowerCase()))
+            .slice(0, 8);
+        setFiltered(matches);
+        setOpen(matches.length > 0);
+        setActiveIdx(-1);
+    };
+
+    const pick = (val) => {
+        onChange({ target: { name, value: val } });
+        setOpen(false);
+        setActiveIdx(-1);
+    };
+
+    const handleKeyDown = (e) => {
+        if (!open) return;
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            setActiveIdx(i => Math.min(i + 1, filtered.length - 1));
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            setActiveIdx(i => Math.max(i - 1, 0));
+        } else if (e.key === 'Enter' && activeIdx >= 0) {
+            e.preventDefault();
+            pick(filtered[activeIdx]);
+        } else if (e.key === 'Escape') {
+            setOpen(false);
+        }
+    };
+
+    // Close on outside click
+    useEffect(() => {
+        const handler = (e) => { if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false); };
+        document.addEventListener('mousedown', handler);
+        return () => document.removeEventListener('mousedown', handler);
+    }, []);
+
+    return (
+        <div className="am__autocomplete" ref={wrapRef}>
+            <div className="am__input-wrap">
+                <input
+                    type="text"
+                    name={name}
+                    required={required}
+                    placeholder={placeholder}
+                    value={value}
+                    onChange={handleInput}
+                    onKeyDown={handleKeyDown}
+                    autoComplete="off"
+                />
+                <span className="am__input-icon">{icon}</span>
+            </div>
+            {open && (
+                <ul className="am__autocomplete-dropdown">
+                    {filtered.map((s, i) => (
+                        <li
+                            key={s}
+                            className={`am__autocomplete-item${i === activeIdx ? ' am__autocomplete-item--active' : ''}`}
+                            onMouseDown={() => pick(s)}
+                        >
+                            <span className="am__autocomplete-match">
+                                {s.split(new RegExp(`(${value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi')).map((part, pi) =>
+                                    part.toLowerCase() === value.toLowerCase()
+                                        ? <mark key={pi}>{part}</mark>
+                                        : part
+                                )}
+                            </span>
+                        </li>
+                    ))}
+                </ul>
+            )}
+        </div>
+    );
+}
+
 /* ─── Main component ──────────────────────────────────────── */
 export default function ApplicationModal({ role, onClose }) {
     const { user } = useAuth();
@@ -208,34 +591,22 @@ export default function ApplicationModal({ role, onClose }) {
 
             // ── Step 3: Save to Supabase ──────────────────────
 
-            // Radically robust dynamic fee extraction:
-            // 1. Check if there's a direct explicit property
-            let extractedFee = role.fee || role.fees || role.price || role.amount;
+            // Use registration_fees directly from the Careers table schema.
+            // Strip any non-numeric characters (e.g. "₹999", "INR 1500") and parse.
+            const rawFee = role.registration_fees
+                ? parseInt(String(role.registration_fees).replace(/\D/g, ''), 10)
+                : NaN;
 
-            // 2. Try parsing it via regex if it's explicitly typed in the free-text description
-            if (!extractedFee && role.description) {
-                const feeMatch = role.description.match(/(?:fee|price|cost|amount).*?(?:rs\.?|inr|₹|$)?\s*(\d+(?:,\d+)*)/i);
-                if (feeMatch && feeMatch[1]) {
-                    extractedFee = parseInt(feeMatch[1].replace(/,/g, ''), 10);
-                }
-            }
+            const fees = !isNaN(rawFee) && rawFee > 0 ? rawFee : 999;
 
-            // 3. Fallback to ripping all numbers out of the compensation string (e.g. "15,000 INR")
-            if (!extractedFee && role.compensation) {
-                extractedFee = parseInt(role.compensation.replace(/\D/g, ''), 10);
-            }
-
-            // Fallback safety to 999
-            const fees = extractedFee && !isNaN(extractedFee) && extractedFee > 0 ? Number(extractedFee) : 999;
-
-            const { data: insertedData, error: dbError } = await supabase.from('training_registrations').insert([{
+            const { data: insertedData, error: dbError } = await supabase.from('transactions').insert([{
                 user_id: user?.user_id || null,
                 position: role.title,
                 role_id: role.id || role.posting_id || null,
                 full_name: formData.full_name,
                 university_name: formData.university_name,
                 college_name: formData.college_name,
-                current_year: formData.current_year,
+                current_year: formData.current_year ? parseInt(formData.current_year, 10) : null,
                 degree_pursuing: formData.degree_pursuing,
                 branch: formData.branch,
                 graduation_year: formData.graduation_year ? parseInt(formData.graduation_year) : null,
@@ -253,7 +624,7 @@ export default function ApplicationModal({ role, onClose }) {
                 throw dbError;
             }
 
-            const applicationId = insertedData?.[0]?.registration_id;
+            const applicationId = insertedData?.[0]?.transaction_id;
 
             // ── Step 4: Initialize Cashfree Payment ───────────
             const isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
@@ -273,7 +644,7 @@ export default function ApplicationModal({ role, onClose }) {
                         customer_phone: formData.mobile_number,
                         customer_name: formData.full_name,
                         amount: fees, // Dynamic price synced with database record
-                        return_url: `${window.location.origin}/profile?reg_id=${applicationId}`,
+                        return_url: `${window.location.origin}/profile?tx_id=${applicationId}`,
                         is_dev: isDev
                     }),
                 }
@@ -388,62 +759,76 @@ export default function ApplicationModal({ role, onClose }) {
                     <div className="am__row">
                         <div className="am__input-group">
                             <label>University Name</label>
-                            <div className="am__input-wrap">
-                                <input
-                                    type="text" name="university_name"
-                                    placeholder="e.g. DAVV"
-                                    value={formData.university_name} onChange={handleChange}
-                                />
-                                <span className="am__input-icon">{Icon.building}</span>
-                            </div>
+                            <AutocompleteInput
+                                name="university_name"
+                                value={formData.university_name}
+                                onChange={handleChange}
+                                placeholder="e.g. DAVV, Anna University"
+                                required={false}
+                                suggestions={UNIVERSITY_SUGGESTIONS}
+                                icon={Icon.building}
+                            />
                         </div>
                         <div className="am__input-group">
                             <label>College Name *</label>
-                            <div className="am__input-wrap">
-                                <input
-                                    type="text" name="college_name" required
-                                    placeholder="e.g. IIPS"
-                                    value={formData.college_name} onChange={handleChange}
-                                />
-                                <span className="am__input-icon">{Icon.school}</span>
-                            </div>
+                            <AutocompleteInput
+                                name="college_name"
+                                value={formData.college_name}
+                                onChange={handleChange}
+                                placeholder="e.g. IIPS, IIT Bombay"
+                                required={true}
+                                suggestions={COLLEGE_SUGGESTIONS}
+                                icon={Icon.school}
+                            />
                         </div>
                     </div>
 
                     <div className="am__row">
                         <div className="am__input-group">
                             <label>Current Year *</label>
-                            <div className="am__input-wrap">
-                                <input
-                                    type="text" name="current_year" required
-                                    placeholder="e.g. 2nd Year"
-                                    value={formData.current_year} onChange={handleChange}
-                                />
+                            <div className="am__input-wrap am__select-wrap">
                                 <span className="am__input-icon">{Icon.calendar}</span>
+                                <select
+                                    name="current_year"
+                                    required
+                                    value={formData.current_year}
+                                    onChange={handleChange}
+                                    className="am__select"
+                                >
+                                    <option value="">Select year…</option>
+                                    <option value={1}>1st Year</option>
+                                    <option value={2}>2nd Year</option>
+                                    <option value={3}>3rd Year</option>
+                                    <option value={4}>4th Year</option>
+                                    <option value={5}>5th Year</option>
+                                    <option value={0}>Lateral Entry</option>
+                                </select>
+                                <span className="am__select-chevron">▾</span>
                             </div>
                         </div>
                         <div className="am__input-group">
                             <label>Degree Pursuing *</label>
-                            <div className="am__input-wrap">
-                                <input
-                                    type="text" name="degree_pursuing" required
-                                    placeholder="e.g. B.Tech"
-                                    value={formData.degree_pursuing} onChange={handleChange}
-                                />
-                                <span className="am__input-icon">{Icon.cap}</span>
-                            </div>
+                            <AutocompleteInput
+                                name="degree_pursuing"
+                                value={formData.degree_pursuing}
+                                onChange={handleChange}
+                                placeholder="e.g. B.Tech, M.Sc"
+                                required={true}
+                                suggestions={DEGREE_SUGGESTIONS}
+                                icon={Icon.cap}
+                            />
                         </div>
-                        
                         <div className="am__input-group">
                             <label>Branch *</label>
-                            <div className="am__input-wrap">
-                                <input
-                                    type="text" name="branch" required
-                                    placeholder="e.g. CSE, IT, ECE"
-                                    value={formData.branch} onChange={handleChange}
-                                />
-                                <span className="am__input-icon">{Icon.building}</span>
-                            </div>
+                            <AutocompleteInput
+                                name="branch"
+                                value={formData.branch}
+                                onChange={handleChange}
+                                placeholder="e.g. CSE, ECE, IT"
+                                required={true}
+                                suggestions={BRANCH_SUGGESTIONS}
+                                icon={Icon.building}
+                            />
                         </div>
                         <div className="am__input-group">
                             <label>Graduation Year *</label>
@@ -494,6 +879,59 @@ export default function ApplicationModal({ role, onClose }) {
                             <a href="/privacy" target="_blank" rel="noreferrer">Privacy Policy</a>, and{' '}
                             <a href="/refund" target="_blank" rel="noreferrer">Refund Policy</a> of AntiLabs.
                         </label>
+                    </div>
+
+                    {/* Program Acknowledgment */}
+                    <div className="am__section-label">Program Acknowledgment</div>
+
+                    <div className="am__acknowledge-box">
+                        <div className="am__acknowledge-header">
+                            <span className="am__acknowledge-icon">⚠</span>
+                            <span>Please read carefully before proceeding to payment</span>
+                        </div>
+                        <p className="am__acknowledge-intro">
+                            By continuing and completing payment for the <strong>{role.title}</strong> Training &amp; Internship Program, you explicitly acknowledge and agree to all of the following:
+                        </p>
+                        <ul className="am__acknowledge-list">
+                            <li>
+                                <span className="am__ack-bullet">01</span>
+                                <span>You agree to abide by all company rules, code of conduct, and guidelines as specified in your <strong>Offer Letter</strong>. Violation of any clause may result in immediate termination from the program without a refund.</span>
+                            </li>
+                            <li>
+                                <span className="am__ack-bullet">02</span>
+                                <span>You have thoroughly read, understood, and accepted AntiLabs'{' '}
+                                    <a href="/terms" target="_blank" rel="noreferrer">Terms &amp; Conditions</a>,{' '}
+                                    <a href="/privacy" target="_blank" rel="noreferrer">Privacy Policy</a>, and{' '}
+                                    <a href="/refund" target="_blank" rel="noreferrer">Refund Policy</a>, and acknowledge that disputes will be governed by these documents.
+                                </span>
+                            </li>
+                            <li>
+                                <span className="am__ack-bullet am__ack-bullet--warn">03</span>
+                                <span><strong>This payment is NOT a guarantee of employment.</strong> The fee is solely a <em>Lecturer &amp; Training Program Fee</em> for structured skill development. Internship conversion, if applicable, is merit-based and subject to performance evaluation.</span>
+                            </li>
+                            <li>
+                                <span className="am__ack-bullet">04</span>
+                                <span>Your <strong>Certificate of Completion</strong> will be issued only upon successful completion of the full Training Program <em>and</em> the mandatory Capstone Project, as evaluated by AntiLabs mentors.</span>
+                            </li>
+                            <li>
+                                <span className="am__ack-bullet am__ack-bullet--warn">05</span>
+                                <span>
+                                    This program has a fixed validity of{' '}
+                                    <strong className="am__ack-highlight">
+                                        {role.duration ? role.duration : 'the duration specified in your Offer Letter'}
+                                    </strong>{' '}
+                                    from the date of purchase. All course access, resources, mentor support, and platform features will be permanently revoked upon expiry.
+                                </span>
+                            </li>
+                            <li>
+                                <span className="am__ack-bullet am__ack-bullet--warn">06</span>
+                                <span><strong>Failure to complete the program within the validity period</strong> will result in the permanent loss of access to all learning resources, recorded sessions, and project submissions. No extensions will be granted unless explicitly approved in writing by AntiLabs.</span>
+                            </li>
+                            <li>
+                                <span className="am__ack-bullet">07</span>
+                                <span>All other terms, deliverables, timelines, mentorship structure, and program-specific conditions are as detailed in the <strong>Offer Letter</strong> issued to you upon registration approval.</span>
+                            </li>
+                        </ul>
                     </div>
 
                     {/* Manual Math Captcha */}
