@@ -28,6 +28,12 @@ export default function Navbar() {
         return () => window.removeEventListener('scroll', handler);
     }, []);
 
+    // Lock body scroll when menu is open
+    useEffect(() => {
+        document.body.style.overflow = menuOpen ? 'hidden' : '';
+        return () => { document.body.style.overflow = ''; };
+    }, [menuOpen]);
+
     return (
         <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
             <div className="navbar__inner">
@@ -44,17 +50,56 @@ export default function Navbar() {
                                 }
                                 onClick={() => setMenuOpen(false)}
                             >
-                                {item.label}
+                                <span>{item.label}</span>
+                                <i className="bi bi-chevron-right navbar__link-chevron" />
                             </NavLink>
                         </li>
                     ))}
+                    {menuOpen && (
+                        <li className="navbar__mobile-actions">
+                            <NavLink
+                                to="/contact"
+                                className="btn btn-secondary navbar__mobile-btn"
+                                onClick={() => setMenuOpen(false)}
+                            >
+                                Contact Us
+                            </NavLink>
+                            {user ? (
+                                <NavLink
+                                    to="/profile"
+                                    className="btn btn-primary navbar__mobile-btn"
+                                    onClick={() => setMenuOpen(false)}
+                                >
+                                    <i className="bi bi-person-circle" />
+                                    My Profile
+                                </NavLink>
+                            ) : (
+                                <NavLink
+                                    to="/login"
+                                    className="btn btn-primary navbar__mobile-btn"
+                                    onClick={() => setMenuOpen(false)}
+                                >
+                                    <i className="bi bi-box-arrow-in-right" />
+                                    Login
+                                </NavLink>
+                            )}
+                        </li>
+                    )}
                 </ul>
 
                 <div className="navbar__actions">
                     <NavLink to="/contact" className="btn btn-secondary navbar__btn-contact">Contact Us</NavLink>
                     {user ? (
-                        <NavLink to="/profile" className="btn btn-primary navbar__btn-cta" style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 16px' }}>
-                            <div style={{ width: '24px', height: '24px', backgroundColor: '#fff', color: '#0ea5e9', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>
+                        <NavLink
+                            to="/profile"
+                            className="btn btn-primary navbar__btn-cta"
+                            style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 16px' }}
+                        >
+                            <div style={{
+                                width: '24px', height: '24px', backgroundColor: '#fff',
+                                color: '#0ea5e9', borderRadius: '50%', display: 'flex',
+                                alignItems: 'center', justifyContent: 'center', fontWeight: 'bold'
+                            }}>
                                 {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
                             </div>
                             Profile
@@ -68,6 +113,7 @@ export default function Navbar() {
                     className={`navbar__hamburger ${menuOpen ? 'navbar__hamburger--open' : ''}`}
                     onClick={() => setMenuOpen(!menuOpen)}
                     aria-label="Toggle menu"
+                    aria-expanded={menuOpen}
                 >
                     <span /><span /><span />
                 </button>
@@ -75,4 +121,3 @@ export default function Navbar() {
         </nav>
     );
 }
-

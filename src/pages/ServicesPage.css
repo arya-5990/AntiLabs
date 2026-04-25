@@ -370,20 +370,74 @@
 @media (max-width: 768px) {
     .sp__body {
         grid-template-columns: 1fr;
+        gap: 32px;
+        padding-top: 40px;
+        padding-bottom: 64px;
     }
 
     .sp__tabs {
         position: static;
         flex-direction: row;
-        flex-wrap: wrap;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 6px;
+    }
+
+    .sp__tabs::-webkit-scrollbar {
+        display: none;
     }
 
     .sp__tab {
-        flex: 1;
-        min-width: 140px;
+        flex-shrink: 0;
+        min-width: 120px;
     }
 
     .sp__hero {
-        padding: 130px 0 70px;
+        padding: 110px 0 60px;
+    }
+
+    .sp__detail {
+        gap: 28px;
+    }
+
+    .sp__features-card {
+        padding: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sp__hero {
+        padding: 90px 0 48px;
+    }
+
+    .sp__tab {
+        min-width: 100px;
+        padding: 10px 12px;
+        gap: 10px;
+    }
+
+    .sp__tab-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .sp__tab-title {
+        font-size: 12px;
+    }
+
+    .sp__detail-title {
+        font-size: clamp(22px, 6vw, 32px);
+    }
+
+    .sp__body {
+        padding-top: 28px;
+        padding-bottom: 48px;
+    }
+
+    .sp__features-card {
+        padding: 20px;
+        border-radius: 14px;
     }
 }

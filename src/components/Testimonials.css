@@ -143,3 +143,26 @@
         padding: 32px 28px;
     }
 }
+
+@media (max-width: 640px) {
+    .testimonials__card {
+        width: 260px;
+        padding: 28px 22px;
+    }
+
+    .testimonials__quote {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .testimonials__card {
+        width: 240px;
+        padding: 24px 18px;
+    }
+
+    .testimonials__marquee-container::before,
+    .testimonials__marquee-container::after {
+        width: 40px;
+    }
+}

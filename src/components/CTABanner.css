@@ -159,3 +159,27 @@
         gap: 12px;
     }
 }
+
+@media (max-width: 480px) {
+    .cta-banner__ctas {
+        align-items: stretch;
+        width: 100%;
+    }
+
+    .cta-banner__ctas .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .cta-banner__title {
+        font-size: clamp(28px, 8vw, 40px);
+    }
+
+    .cta-banner__sub {
+        font-size: 15px;
+    }
+
+    .cta-banner__text {
+        gap: 18px;
+    }
+}

@@ -241,17 +241,51 @@
     .footer__col--brand {
         grid-column: 1 / -1;
     }
+
+    .footer__main {
+        padding: 56px 0 44px;
+    }
 }
 
 @media (max-width: 580px) {
     .footer__grid {
         grid-template-columns: 1fr;
-        gap: 32px;
+        gap: 28px;
+    }
+
+    .footer__main {
+        padding: 44px 0 36px;
     }
 
     .footer__bottom-inner {
         flex-direction: column;
         align-items: flex-start;
-        gap: 12px;
+        gap: 10px;
+    }
+
+    .footer__logo-img {
+        height: 68px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer__grid {
+        gap: 24px;
+    }
+
+    .footer__main {
+        padding: 36px 0 28px;
+    }
+
+    .footer__bottom-inner {
+        gap: 8px;
+    }
+
+    .footer__bottom-links {
+        flex-wrap: wrap;
+    }
+
+    .footer__copy {
+        font-size: 12px;
     }
 }

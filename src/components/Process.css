@@ -215,3 +215,48 @@
         font-size: 22px;
     }
 }
+
+@media (max-width: 540px) {
+    .process__node-dot {
+        width: 34px;
+        height: 34px;
+    }
+
+    .process__node-dot span {
+        font-size: 11px;
+    }
+
+    .process__node-line {
+        top: 17px;
+        left: calc(50% + 17px);
+        right: calc(-50% + 17px);
+    }
+
+    .process__label {
+        font-size: 9px;
+        padding: 0 4px;
+    }
+
+    .process__header {
+        margin-bottom: 48px;
+    }
+}
+
+@media (max-width: 400px) {
+    /* On very small phones, hide labels to prevent overflow */
+    .process__labels {
+        display: none;
+    }
+
+    .process__card {
+        padding: 24px 18px;
+    }
+
+    .process__card-title {
+        font-size: 20px;
+    }
+
+    .process__card-desc {
+        font-size: 14px;
+    }
+}

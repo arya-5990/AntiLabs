@@ -173,3 +173,15 @@
         max-width: 320px;
     }
 }
+
+@media (max-width: 480px) {
+
+    .team__grid,
+    .team__grid--two {
+        max-width: 100%;
+    }
+
+    .team__card {
+        padding: 28px 20px 22px;
+    }
+}

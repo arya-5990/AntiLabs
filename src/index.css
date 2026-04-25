@@ -59,6 +59,11 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Prevent iOS Safari text size adjustment on rotation */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Suppress mobile tap highlight flash */
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* ---- Scrollbar ---- */
@@ -328,5 +333,40 @@ a {
 
   .container {
     padding: 0 20px;
+  }
+
+  .btn {
+    padding: 12px 22px;
+    font-size: 14px;
+  }
+
+  .btn-lg {
+    padding: 14px 28px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --section-py: 48px;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  .section-title {
+    font-size: clamp(26px, 7vw, 40px);
+  }
+
+  .section-sub {
+    font-size: 15px;
+  }
+
+  .btn-lg {
+    padding: 13px 22px;
+    font-size: 14px;
+    width: 100%;
+    justify-content: center;
   }
 }

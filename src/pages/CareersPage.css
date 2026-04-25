@@ -453,3 +453,29 @@
         padding-top: 16px;
     }
 }
+
+@media (max-width: 480px) {
+    .cp__hero {
+        padding: 100px 0 52px;
+    }
+
+    .cp__hero-sub {
+        font-size: 15px;
+    }
+
+    .cp__general-card {
+        padding: 36px 22px;
+    }
+
+    .cp__cta-strip {
+        padding: 56px 0;
+    }
+
+    .cp__role-compensation {
+        font-size: 13px;
+    }
+
+    .cp__role-title {
+        font-size: 15px;
+    }
+}

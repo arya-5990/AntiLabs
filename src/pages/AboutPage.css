@@ -315,3 +315,29 @@
         grid-template-columns: 1fr;
     }
 }
+
+@media (max-width: 480px) {
+    .ap__hero {
+        padding: 100px 0 52px;
+    }
+
+    .ap__hero-sub {
+        font-size: 15px;
+    }
+
+    .ap__stat-value {
+        font-size: 32px;
+    }
+
+    .ap__mv-card {
+        padding: 28px 22px;
+    }
+
+    .ap__cta-strip {
+        padding: 56px 0;
+    }
+
+    .ap__story-grid {
+        gap: 28px;
+    }
+}

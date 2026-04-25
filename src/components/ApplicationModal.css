@@ -228,7 +228,7 @@
     padding: 10px 14px 10px 38px;
     border: 1.5px solid var(--border);
     border-radius: 8px;
-    font-size: 14px;
+    font-size: 16px; /* 16px prevents iOS auto-zoom */
     outline: none;
     transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
     font-family: var(--font-body);
@@ -532,5 +532,42 @@
     .am__btn-cancel {
         width: 100%;
         justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .am__wrapper {
+        border-radius: 14px;
+        max-height: 96vh;
+    }
+
+    .am__header {
+        padding: 16px;
+    }
+
+    .am__form {
+        padding: 16px;
+        gap: 18px;
+    }
+
+    .am__footer {
+        padding: 12px 16px 18px;
+    }
+
+    .am__title {
+        font-size: 19px;
+    }
+
+    .am__captcha-box {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .am__captcha-input {
+        width: 100%;
+    }
+
+    .am__file-zone {
+        padding: 16px 14px 12px;
     }
 }

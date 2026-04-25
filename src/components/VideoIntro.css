@@ -45,3 +45,12 @@
     color: #fff;
     border-color: rgba(255, 255, 255, 0.6);
 }
+
+@media (max-width: 480px) {
+    .vi__skip {
+        bottom: 28px;
+        right: 20px;
+        font-size: 12px;
+        padding: 9px 18px;
+    }
+}
