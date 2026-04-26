@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import SEO from './components/SEO';
 import ScrollToTop from './components/ScrollToTop';
-import VideoIntro from './components/VideoIntro';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import TrustedBy from './components/TrustedBy';
@@ -26,23 +25,12 @@ import StudentDashboard from './pages/StudentDashboard';
 import './App.css';
 
 function HomePage() {
-  // Persist across re-mounts: video plays only once per browser session
-  const [introDone, setIntroDone] = useState(
-    () => sessionStorage.getItem('introSeen') === 'true'
-  );
-
-  const handleIntroDone = () => {
-    sessionStorage.setItem('introSeen', 'true');
-    setIntroDone(true);
-  };
-
   return (
     <>
       <SEO 
         isHome={true}
         canonicalUrl="/"
       />
-      {!introDone && <VideoIntro onDone={handleIntroDone} />}
       <Navbar />
       <main>
         <Hero />
